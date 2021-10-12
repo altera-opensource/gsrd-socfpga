@@ -2,3 +2,7 @@
 	path = poky
 	url = https://git.yoctoproject.org/git/poky
 	branch = honister
+[submodule "meta-intel-fpga"]
+	path = meta-intel-fpga
+	url = https://git.yoctoproject.org/git/meta-intel-fpga
+	branch = honister
