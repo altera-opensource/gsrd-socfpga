@@ -10,3 +10,7 @@
 	path = meta-intel-fpga-refdes
 	url = https://github.com/altera-opensource/meta-intel-fpga-refdes.git
 	branch = honister
+[submodule "meta-openembedded"]
+	path = meta-openembedded
+	url = https://git.openembedded.org/meta-openembedded
+	branch = honister
