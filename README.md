@@ -14,14 +14,11 @@ Dependencies
 
 ## Using The Script
 
-1. Update the submodules
-`git submodule update -r --remote`
-2. Run the target build script
-For Agilex, run
-`./agilex-build.sh`
-For Stratix10, run
-`./stratix10-build.sh`
-For Arria10, run
-`./arria10-build.sh`
-For Cyclone V, run
-`./cyclone5-build.sh`
+
+|  Target   |        Command         |
+| --------- | ---------------------- |
+| Agilex    | $ ./agilex-build.sh    |
+| Stratix10 | $ ./stratix10-build.sh |
+| Arria10   | $ ./arria10-build.sh   |
+| Cyclone V | $ ./cyclone5-build.sh  |
+
