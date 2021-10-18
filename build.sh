@@ -1,5 +1,17 @@
 #!/bin/bash -e
 
+arg0=$0
+filename="${arg0##*/}"
+target=${filename%-*}
+if [ -n "${target}" -a "${target}" != "${filename}" ]; then
+	MACHINE=${target}
+fi
+if [ -z "${MACHINE}" ]; then
+	echo "MACHINE must be set before sourcing this script"
+	return
+fi
+export $MACHINE
+
 #  Description:
 #  YOCTO_BRANCH=<Yocto Project version for build> choose from: hardknott, honister.
 #  Default: honister. For GSRD 21.3: honister
@@ -23,10 +35,33 @@ META_INTEL_FPGA_REFDES_BRANCH=honister
 #ATF_VER=v2.5.0
 
 usage() {
-	echo "Usage: Builds SoC Linux distribution, Linux kernel and U-boot for SoCFPGA"
-	echo "NOTE: This builds the Linux distro using Poky of Yocto Project version ($YOCTO_BRANCH)"
-	echo " -t <target> choose from agilex, stratix10, arria10, or cyclone5"
-	echo " -i <image type> choose from gsrd, nand, pcie, pr, qspi, sgmii, tse. For SDMMC variant, use gsrd"
+cat <<EOF
+
+####################################
+#            USAGE NOTE            #
+###################################
+This script builds a Reference Linux distribution for Intel SoCFPGA.
+This script was written to parse its MACHINE variables from the script file name.
+Please make sure you ran the correct script that associated to the FPGA device name.
+
+For Agilex: use agilex-build.sh
+For Stratix10: use stratix10-build.sh
+For Arria10: use arria10-build.sh
+For Cyclone5: use cyclone5-build.sh
+
+Example command to use:
+$ ./agilex-build.sh
+
+NOTE: This script uses Poky as the reference distribution of Yocto Project version ($YOCTO_BRANCH)
+
+NOTE: There are a few GSRD variants supported. To build specific GSRD variant,
+      use the following optional flag (-i) to select the variant desired.
+      List of supported variant: gsrd, nand, pcie, pr, qspi, sgmii, tse
+      Default variant: gsrd
+
+Example: $ ./agilex-build.sh -i pcie
+
+EOF
 }
 
 # Ensures that no other bitbake is running, otherwise sleep for a random time and try again
@@ -144,7 +179,7 @@ yocto_build_setup() {
 		sed -i /IMAGE\_TYPE/d conf/local.conf
 		sed -i /SRC\_URI\_/d conf/local.conf
 
-		echo "MACHINE = \"${MACHINE}\"" >> conf/local.conf
+		echo "MACHINE = \"$MACHINE\"" >> conf/local.conf
 		echo "DL_DIR = \"$WORKSPACE/downloads\"" >> conf/local.conf
 		echo "IMAGE_TYPE = \"$IMAGE\"" >> conf/local.conf
 		# Linux
@@ -184,10 +219,6 @@ build_linux_distro() {
 
 while [ "$1" != "" ]; do
 	case $1 in
-		-t | --target )
-			shift
-			target=$1
-			;;
 		-i | --image )
 			shift
 			IMAGE=$1
@@ -204,12 +235,6 @@ while [ "$1" != "" ]; do
 	shift
 done
 
-# Set default target to agilex if "-t" argument is empty
-if [ -z $target ]; then
-	MACHINE=agilex
-else
-	MACHINE=$target
-fi
 echo "[INFO] MACHINE selected for the build: $MACHINE"
 
 WORKSPACE=$(dirname "$(readlink -f "$0")")
