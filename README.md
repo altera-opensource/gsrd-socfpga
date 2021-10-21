@@ -14,6 +14,11 @@ Dependencies
 
 ## Using The Script
 
+1. Clone the repository
+`$ git clone https://gitlab.devtools.intel.com/psg-opensource/gsrd-socfpga.git`
+2. Sync the submodules
+`$ cd gsrd-socfpga`
+`$ git submodule update --init --remote -r`
 
 |  Target   |        Command         |
 | --------- | ---------------------- |
