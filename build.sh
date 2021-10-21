@@ -148,7 +148,8 @@ get_version_info() {
 get_meta() {
 	pushd $WORKSPACE > /dev/null
 		# Update submodules
-		git submodule update --remote -r
+		git submodule update --init --recursive
+		#git submodule update --remote -r
 		get_version_info
 	popd > /dev/null
 }
