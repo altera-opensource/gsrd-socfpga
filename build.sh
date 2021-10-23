@@ -184,6 +184,7 @@ yocto_build_setup() {
 		echo "IMAGE_TYPE = \"$IMAGE\"" >> conf/local.conf
 		echo 'DISTRO_FEATURES:append = " systemd"' >> conf/local.conf
 		echo 'VIRTUAL-RUNTIME_init_manager = "systemd"' >> conf/local.conf
+		echo "require conf/machine/$MACHINE-gsrd.conf" >> conf/local.conf
 		# Linux
 		echo 'PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"' >> conf/local.conf
 		if [ ! -z $LINUX_VER ]; then
