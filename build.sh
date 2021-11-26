@@ -181,7 +181,7 @@ yocto_build_setup() {
 
 		echo "MACHINE = \"$MACHINE\"" >> conf/local.conf
 		echo "DL_DIR = \"$WORKSPACE/downloads\"" >> conf/local.conf
-		echo "IMAGE_TYPE = \"$IMAGE\"" >> conf/local.conf
+		echo "IMAGE_TYPE:${MACHINE} = \"$IMAGE\"" >> conf/local.conf
 		echo 'DISTRO_FEATURES:append = " systemd"' >> conf/local.conf
 		echo 'VIRTUAL-RUNTIME_init_manager = "systemd"' >> conf/local.conf
 		echo "require conf/machine/$MACHINE-gsrd.conf" >> conf/local.conf
@@ -192,7 +192,7 @@ yocto_build_setup() {
 		fi
 		# U-boot
 		echo 'PREFERRED_PROVIDER_virtual/bootloader = "u-boot-socfpga"' >> conf/local.conf
-		echo "UBOOT_CONFIG = \"$UB_CONFIG\"" >> conf/local.conf
+		echo "UBOOT_CONFIG:${MACHINE} = \"$UB_CONFIG\"" >> conf/local.conf
 		if [ ! -z $UBOOT_VER ]; then
 			echo "PREFERRED_VERSION_u-boot-socfpga = \"$UBOOT_VER%\"" >> conf/local.conf
 		fi
@@ -246,19 +246,18 @@ if [ ! -d "$WORKSPACE" ]; then
 	mkdir $WORKSPACE
 fi
 
-# Set default variant to build to gsrd if "-i" argument is empty
-if [ -z $IMAGE ]; then
-	IMAGE="gsrd"
+# Set default variant to gsrd for stratix10 and agilex
+# Set default variant to build gsrd if "-i" argument is empty
+if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
+		IMAGE="gsrd"
+elif [ -z $IMAGE ]; then
+		IMAGE="gsrd"
 fi
 echo "[INFO] Variant selected for the build: $IMAGE"
 
 # Set default UB_CONFIG for each of the configurations
 if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
-	if [ "$IMAGE" == "qspi" ]; then
-		UB_CONFIG="$MACHINE-socdk-$IMAGE-atf"
-	else
 		UB_CONFIG="$MACHINE-socdk-atf"
-	fi
 elif [[ "$MACHINE" == "arria10" || "$MACHINE" == "cyclone5" ]]; then
 	if [[ "$IMAGE" == "nand" || "$IMAGE" == "qspi" ]]; then
 		UB_CONFIG="$MACHINE-socdk-$IMAGE"
