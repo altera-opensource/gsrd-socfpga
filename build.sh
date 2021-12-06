@@ -1,6 +1,12 @@
 #!/bin/bash -e
 
 environment_setup() {
+
+	LINUX_VER=5.10.60
+	UBOOT_VER=v2021.07
+	#UBOOT_REL=_RC
+	ATF_VER=v2.5.0
+	
 	arg0=$0
 	filename="${arg0##*/}"
 	target=${filename%-*}
@@ -20,54 +26,25 @@ environment_setup() {
 		mkdir $WORKSPACE
 	fi
 	
+	echo -e "\n[INFO] Selected ingredient versions for this build"
+	
 	#------------------------------------------------------------------------------------------#
-	# Set default Linux, U-Boot, and ATF variant
+	# Set default Linux Version 
 	#------------------------------------------------------------------------------------------#
-	#  Description:
-	#  If were to build a specific version of Linux Kernel, U-boot or ATF,
-	#  uncomment/define the following variables else leave them as commented lines to build latest release:
-	#  For Linux kernel:
-	#		LINUX_VER=<Linux kernel version for build> choose from: 5.10.60 (for GSRD 21.3 release)
-	#  		LINUX_SOCFPGA_BRANCH=socfpga-$LINUX_VER-lts  Uncomment this line and keep the default value unchanged.
-	#  For Uboot:
-	#  		UBOOT_VER=<Uboot version for build> choose from: v2021.07 (for GSRD 21.3 release).
-	#  For arm-trusted-firmware:
-	#      ATF_VER=<ATF version for build> choose from: 2.5.0 (for GSRD 21.3 release).
-	#
-	#LINUX_VER=5.10.60
-	#UBOOT_VER=v2021.07
-	#ATF_VER=v2.5.0
+	echo "LINUX_VERSION = $LINUX_VER"
+	LINUX_SOCFPGA_BRANCH=socfpga-$LINUX_VER-lts
+	echo "LINUX_SOCFPGA_BRANCH = $LINUX_SOCFPGA_BRANCH"
 
 	#------------------------------------------------------------------------------------------#
-	# Set default IMAGE variant 
+	# Set default U-Boot Version 
 	#------------------------------------------------------------------------------------------#
-	# Set default variant to build gsrd if "-i" argument is empty
-	#
-	# 	Agilex variant: gsrd [ sgmii + pr + qspi ]
-	# 	Stratix10 variant: gsrd [ sgmii + pcie + pr + qspi ]
-	# 	Arria10 variant: gsrd, qspi, nand, pcie, pr, sgmii, tse
-	# 	Cyclone5 variant: gsrd
-	#
-	#------------------------------------------------------------------------------------------#
-	if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" || "$MACHINE" == "cyclone5" || -z $IMAGE ]]; then
-		IMAGE="gsrd"
-	fi
-	echo "[INFO] Variant selected for the build: $IMAGE"
+	echo "UBOOT_VERSION = $UBOOT_VER$UBOOT_REL"
+	UBOOT_SOCFGPA_BRANCH=socfpga_$UBOOT_VER$UBOOT_REL
+	echo "UBOOT_SOCFGPA_BRANCH = $UBOOT_SOCFGPA_BRANCH"
 
 	#------------------------------------------------------------------------------------------#
 	# Set default UB_CONFIG for each of the configurations
-	#------------------------------------------------------------------------------------------#
-	# 					For Agilex and Stratix10:
-	# U-Boot version ≥ v2021.07 : Uses same defconfig naming convention
-	#		  Yocto							U-Boot
-	#	$MACHINE-socdk-atf		-> socfpga_$MACHINE_defconfig
-	#	$MACHINE-socdk-qspi-atf -> socfpga_$MACHINE_defconfig
-	#
-	# U-Boot version < v2021.07 : Uses diffrernt defconfig naming convention
-	#		  Yocto							U-Boot
-	#	$MACHINE-socdk-atf		-> socfpga_$MACHINE_atf_defconfig
-	#	$MACHINE-socdk-qspi-atf	-> socfpga_$MACHINE_qspi_atf_defconfig
-	#------------------------------------------------------------------------------------------#
+	#------------------------------------------------------------------------------------------#		
 	if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
 			UB_CONFIG="$MACHINE-socdk-atf"
 	elif [[ "$MACHINE" == "arria10" || "$MACHINE" == "cyclone5" ]]; then
@@ -78,16 +55,42 @@ environment_setup() {
 		fi
 	fi
 	echo "[INFO] U-boot config selected for the build: $UB_CONFIG"
+	
+	#------------------------------------------------------------------------------------------#
+	# Set default Arm-Trusted-Firmware variant 
+	#------------------------------------------------------------------------------------------#
+	echo "ATF_VERSION = $ATF_VER"
+	ATF_BRANCH=socfpga_$ATF_VER
+	echo "ATF_BRANCH = $ATF_BRANCH"
+
+	#------------------------------------------------------------------------------------------#
+	# Set default IMAGE variant 
+	#------------------------------------------------------------------------------------------#
+	if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" || "$MACHINE" == "cyclone5" || -z $IMAGE ]]; then
+		IMAGE="gsrd"
+	fi
+	echo "[INFO] Variant selected for the build: $IMAGE"
 }
 
 usage() {
 cat <<EOF
 
-#-----------------------------#
-#          USAGE NOTE         #
-#-----------------------------#
+#-------------------------------------------------------#
+#                       USAGE NOTE                      #
+#-------------------------------------------------------#
 This script builds a Reference Linux distribution for Intel SoCFPGA.
 This script was written to parse its MACHINE variables from the script file name.
+
+Description:
+This build script is targetted for GSRD 21.3 release with the following components.
+#------------------------------------------------#
+#  Linux Kernel          |   LINUX_VER=5.10.60   #
+#------------------------------------------------#
+#  U-Boot                |   UBOOT_VER=v2021.07  #
+#------------------------------------------------#
+#  Arm-Trusted-Firmware  |   ATF_VER=v2.5.0      #
+#------------------------------------------------#
+
 Please make sure you ran the correct script that associated to the FPGA device name.
 
 For Agilex: use agilex-build.sh
@@ -101,11 +104,21 @@ $ ./agilex-build.sh
 NOTE: This script uses Poky as the reference distribution of Yocto Project
 
 NOTE: There are a few GSRD variants supported. To build specific GSRD variant,
-      use the following optional flag (-i) to select the variant desired.
-      List of supported variant: gsrd, nand, pcie, pr, qspi, sgmii, tse
-      Default variant: gsrd
+      use optional flag (-i) to select the variant desired.
+IMAGE variant:
+#-----------------------------------------------------------#
+#  Agilex      |   gsrd [ sgmii + pr + qspi ]               #
+#-----------------------------------------------------------#
+#  Stratix10   |   gsrd [ sgmii + pcie + pr + qspi ]        #
+#-----------------------------------------------------------#
+#  Arria10     |   gsrd, qspi, nand, pcie, pr, sgmii, tse   #
+#-----------------------------------------------------------#
+#  Cyclone5    |   gsrd                                     #
+#-----------------------------------------------------------#
+#  Default     |   gsrd                                     #
+#-----------------------------------------------------------#
 
-Example: $ ./agilex-build.sh -i pcie
+Example: $ ./arria10-build.sh -i pcie
 
 EOF
 }
@@ -156,70 +169,18 @@ environment_cleanup() {
 }
 
 #------------------------------------------------------------------------------------------#
-# Get build components version informations
-#------------------------------------------------------------------------------------------#
-get_version_info() {
-	echo -e "\n[INFO] Selected ingredient versions for this build"
-
-	[ -d "$WORKSPACE/meta-intel-fpga" ] && pushd meta-intel-fpga > /dev/null
-
-	# LINUX
-	if [ -z $LINUX_VER ]; then
-		LINUX_BB="$(find * -name linux-socfpga-lts*.bb | sort -n | head -n1)"
-		grep -Fw LINUX_VERSION\ \= $LINUX_BB
-		LINUX_VER=$(grep -Fw LINUX_VERSION\ \= $LINUX_BB | cut -d'"' -f2)
-	else
-		echo "LINUX_VERSION = $LINUX_VER"
-	fi
-	LINUX_SOCFPGA_BRANCH=socfpga-$LINUX_VER-lts
-	echo "LINUX_SOCFPGA_BRANCH = $LINUX_SOCFPGA_BRANCH"
-
-	# U-BOOT
-	if [ -z $UBOOT_VER ]; then
-		UBOOT_BB="$(find * -name u-boot-socfpga*.bb | sort -nr | head -n1)"
-		grep -Fw UBOOT_VERSION\ \= $UBOOT_BB
-		UBOOT_VER=$(grep -Fw UBOOT_VERSION\ \= $UBOOT_BB | cut -d'"' -f2 | cut -d'_' -f1)
-		if [ "$UBOOT_VER" == *"_RC"* ]; then
-			UBOOT_REL="_$(grep -Fw UBOOT_VERSION\ \= $UBOOT_BB | cut -d'"' -f2 | cut -d'_' -f2)"
-		fi
-	else
-		if [ "$UBOOT_VER" == *"_RC"* ]; then
-			UBOOT_VER=$(`cut -d'_' -f1` <<< "$UBOOT_VER")
-			UBOOT_REL="_$(grep -Fw UBOOT_VERSION\ \= $UBOOT_BB | cut -d'"' -f2 | cut -d'_' -f2)"
-		fi
-		echo "UBOOT_VERSION = $UBOOT_VER$UBOOT_REL"
-	fi
-	UBOOT_SOCFGPA_BRANCH=socfpga_$UBOOT_VER$UBOOT_REL
-	echo "UBOOT_SOCFGPA_BRANCH = $UBOOT_SOCFGPA_BRANCH"
-
-	# ATF
-	if [ -z $ATF_VER ]; then
-		ATF_BB="$(find * -name arm-trusted-firmware*.bb | sort -nr | head -n1)"
-		grep -Fw ATF_VERSION\ \= $ATF_BB
-		ATF_VER=$(grep -Fw ATF_VERSION\ \= $ATF_BB | cut -d'"' -f2)
-	else
-		echo "ATF_VERSION = $ATF_VER"
-	fi
-	ATF_BRANCH=socfpga_$ATF_VER
-	echo "ATF_BRANCH = $ATF_BRANCH"
-
-	[ -d "$WORKSPACE/meta-intel-fpga" ] && popd > /dev/null
-
-	# Pause for 5 seconds for user to view the versions
-	sleep 5
-}
-
-#------------------------------------------------------------------------------------------#
 # Update existing meta layers or clone a new one if it does not exists
 #------------------------------------------------------------------------------------------#
 get_meta() {
 	pushd $WORKSPACE > /dev/null
 		# Update submodules
 		git submodule update --init --remote -r
-		get_version_info
 	popd > /dev/null
 }
 
+#------------------------------------------------------------------------------------------#
+# Initialize Yocto build environment setup
+#------------------------------------------------------------------------------------------#
 yocto_build_setup() {
 	pushd $WORKSPACE > /dev/null
 		
@@ -269,6 +230,9 @@ yocto_build_setup() {
 	popd > /dev/null
 }
 
+#------------------------------------------------------------------------------------------#
+# Clean Yocto build environment and start Bitbake process
+#------------------------------------------------------------------------------------------#
 build_linux_distro() {
 	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs > /dev/null
 		echo -e "\n[INFO] Clean up previous kernel build if any"
@@ -286,6 +250,9 @@ build_linux_distro() {
 	popd > /dev/null
 }
 
+#------------------------------------------------------------------------------------------#
+# Package Yocto bitbake generated binaries
+#------------------------------------------------------------------------------------------#
 packaging() {
 	echo -e "\n[INFO] Copy the build output and store in $STAGING_FOLDER"
 	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/images/$MACHINE/ > /dev/null
