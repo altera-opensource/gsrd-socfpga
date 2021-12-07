@@ -218,15 +218,13 @@ yocto_build_setup() {
 		echo "require conf/machine/$MACHINE-gsrd.conf" >> conf/local.conf
 		# Linux
 		echo 'PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"' >> conf/local.conf
-		echo "PREFERRED_VERSION_linux-socfpga-lts = \"$LINUX_VER%\"" >> conf/local.conf
+		echo "PREFERRED_VERSION_linux-socfpga-lts = \"`cut -d. -f1-2 <<< "$LINUX_VER"`%\"" >> conf/local.conf
 		# U-boot
 		echo 'PREFERRED_PROVIDER_virtual/bootloader = "u-boot-socfpga"' >> conf/local.conf
 		echo "UBOOT_CONFIG:${MACHINE} = \"$UB_CONFIG\"" >> conf/local.conf
 		echo "PREFERRED_VERSION_u-boot-socfpga = \"$UBOOT_VER%\"" >> conf/local.conf
 		# ATF
-		if [ ! -z $ATF_VER ]; then
-			echo "PREFERRED_VERSION_arm-trusted-firmware = \"`cut -d. -f1-2 <<< "$ATF_VER"`\"" >> conf/local.conf
-		fi
+		echo "PREFERRED_VERSION_arm-trusted-firmware = \"`cut -d. -f1-2 <<< "$ATF_VER"`\"" >> conf/local.conf
 	popd > /dev/null
 }
 
