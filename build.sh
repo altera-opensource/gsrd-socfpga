@@ -75,6 +75,8 @@ echo "ATF_VERSION          = $ATF_VER"
 ATF_BRANCH=socfpga_$ATF_VER
 echo "ATF_BRANCH           = $ATF_BRANCH"
 
+echo -e "\n[INFO] Proceed with: build_setup"
+
 #------------------------------------------------------------------------------------------#
 # Clean up the build workspace for subsequent build to happen smoothly
 #------------------------------------------------------------------------------------------#
