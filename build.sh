@@ -1,147 +1,84 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+# Source this file by running:
+# 	$ . <machine>-<image>-build.sh
 
-environment_setup() {
+arg0=$0
+test -n "$BASH" && arg0=$BASH_SOURCE[0]
+filename="${arg0##*/}"
 
-	LINUX_VER=5.10.60
-	UBOOT_VER=v2021.07
-	#UBOOT_REL=_RC
-	ATF_VER=v2.5.0
-	
-	arg0=$0
-	filename="${arg0##*/}"
-	target=${filename%-*}
-	if [ -n "${target}" -a "${target}" != "${filename}" ]; then
-		MACHINE=${target}
-	fi
-	if [ -z "${MACHINE}" ]; then
-		echo "MACHINE must be set before sourcing this script"
-		return
-	fi
-	export $MACHINE
-	echo "[INFO] MACHINE selected for the build: $MACHINE"
-	
-	WORKSPACE=$(dirname "$(readlink -f "$0")")
-	echo "[INFO] Build location is $WORKSPACE"
-	if [ ! -d "$WORKSPACE" ]; then
-		mkdir $WORKSPACE
-	fi
-	
-	echo -e "\n[INFO] Selected ingredient versions for this build"
-	
-	#------------------------------------------------------------------------------------------#
-	# Set default Linux Version 
-	#------------------------------------------------------------------------------------------#
-	echo "LINUX_VERSION = $LINUX_VER"
-	LINUX_SOCFPGA_BRANCH=socfpga-$LINUX_VER-lts
-	echo "LINUX_SOCFPGA_BRANCH = $LINUX_SOCFPGA_BRANCH"
+WORKSPACE=$(/bin/readlink -f $(dirname '${0}'))
+echo "[INFO] Build location = $WORKSPACE"
+if [ ! -d "$WORKSPACE" ]; then
+	mkdir $WORKSPACE
+fi
 
-	#------------------------------------------------------------------------------------------#
-	# Set default U-Boot Version 
-	#------------------------------------------------------------------------------------------#
-	echo "UBOOT_VERSION = $UBOOT_VER$UBOOT_REL"
-	UBOOT_SOCFGPA_BRANCH=socfpga_$UBOOT_VER$UBOOT_REL
-	echo "UBOOT_SOCFGPA_BRANCH = $UBOOT_SOCFGPA_BRANCH"
-
-	#------------------------------------------------------------------------------------------#
-	# Set default UB_CONFIG for each of the configurations
-	#------------------------------------------------------------------------------------------#		
-	if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
-			UB_CONFIG="$MACHINE-socdk-atf"
-	elif [[ "$MACHINE" == "arria10" || "$MACHINE" == "cyclone5" ]]; then
-		if [[ "$IMAGE" == "nand" || "$IMAGE" == "qspi" ]]; then
-			UB_CONFIG="$MACHINE-socdk-$IMAGE"
-		else
-			UB_CONFIG="$MACHINE-socdk"
-		fi
-	fi
-	echo "[INFO] U-boot config selected for the build: $UB_CONFIG"
-	
-	#------------------------------------------------------------------------------------------#
-	# Set default Arm-Trusted-Firmware variant 
-	#------------------------------------------------------------------------------------------#
-	echo "ATF_VERSION = $ATF_VER"
-	ATF_BRANCH=socfpga_$ATF_VER
-	echo "ATF_BRANCH = $ATF_BRANCH"
-
-	#------------------------------------------------------------------------------------------#
-	# Set default IMAGE variant 
-	#------------------------------------------------------------------------------------------#
-	if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" || "$MACHINE" == "cyclone5" || -z $IMAGE ]]; then
-		IMAGE="gsrd"
-	fi
-	echo "[INFO] Variant selected for the build: $IMAGE"
-}
-
-usage() {
-cat <<EOF
-
-#-------------------------------------------------------#
-#                       USAGE NOTE                      #
-#-------------------------------------------------------#
-This script builds a Reference Linux distribution for Intel SoCFPGA.
-This script was written to parse its MACHINE variables from the script file name.
-
-Description:
-This build script is targetted for GSRD 21.3 release with the following components.
-#------------------------------------------------#
-#  Linux Kernel          |   LINUX_VER=5.10.60   #
-#------------------------------------------------#
-#  U-Boot                |   UBOOT_VER=v2021.07  #
-#------------------------------------------------#
-#  Arm-Trusted-Firmware  |   ATF_VER=v2.5.0      #
-#------------------------------------------------#
-
-Please make sure you ran the correct script that associated to the FPGA device name.
-
-For Agilex: use agilex-build.sh
-For Stratix10: use stratix10-build.sh
-For Arria10: use arria10-build.sh
-For Cyclone5: use cyclone5-build.sh
-
-Example command to use:
-$ ./agilex-build.sh
-
-NOTE: This script uses Poky as the reference distribution of Yocto Project
-
-NOTE: There are a few GSRD variants supported. To build specific GSRD variant,
-      use optional flag (-i) to select the variant desired.
-IMAGE variant:
-#-----------------------------------------------------------#
-#  Agilex      |   gsrd [ sgmii + pr + qspi ]               #
-#-----------------------------------------------------------#
-#  Stratix10   |   gsrd [ sgmii + pcie + pr + qspi ]        #
-#-----------------------------------------------------------#
-#  Arria10     |   gsrd, qspi, nand, pcie, pr, sgmii, tse   #
-#-----------------------------------------------------------#
-#  Cyclone5    |   gsrd                                     #
-#-----------------------------------------------------------#
-#  Default     |   gsrd                                     #
-#-----------------------------------------------------------#
-
-Example: $ ./arria10-build.sh -i pcie
-
-EOF
-}
+echo -e "\n[INFO] Selected ingredient versions for this build"
+#------------------------------------------------------------------------------------------#
+# Set Machine variant
+#------------------------------------------------------------------------------------------#
+target=${filename%-*-*}
+if [ -n "${target}" -a "${target}" != "${filename}" ]; then
+	MACHINE=${target}
+fi
+if [ -z "${MACHINE}" ]; then
+	echo "MACHINE must be set before sourcing this script"
+	return
+fi
+echo "MACHINE              = $MACHINE"
+export $MACHINE
+#------------------------------------------------------------------------------------------#
+# Set IMAGE variant
+#------------------------------------------------------------------------------------------#
+image=$(cut -d- -f2 <<< "$filename")
+if [ -n "${image}" -a "${image}" != "${filename}" ]; then
+	IMAGE=${image}
+fi
+echo "VARIANT              = $IMAGE"
+export $IMAGE
 
 #------------------------------------------------------------------------------------------#
-# Ensures that no other bitbake is running, otherwise sleep for a random time and try again
+# Set Linux Version
 #------------------------------------------------------------------------------------------#
-sanity_bitbake() {
-while true; do
-	BITBAKE_PROCESS_RUNNING=`ps aux | grep bitbake | wc -l`
-	if [ $BITBAKE_PROCESS_RUNNING -eq 1 ]; then
-		break;
+export LINUX_VER=5.10.60
+echo "LINUX_VERSION        = $LINUX_VER"
+LINUX_SOCFPGA_BRANCH=socfpga-$LINUX_VER-lts
+echo "LINUX_SOCFPGA_BRANCH = $LINUX_SOCFPGA_BRANCH"
+
+#------------------------------------------------------------------------------------------#
+# Set default U-Boot Version
+#------------------------------------------------------------------------------------------#
+export UBOOT_VER=v2021.07
+#export UBOOT_REL=_RC
+echo "UBOOT_VERSION        = $UBOOT_VER$UBOOT_REL"
+UBOOT_SOCFGPA_BRANCH=socfpga_$UBOOT_VER$UBOOT_REL
+echo "UBOOT_SOCFGPA_BRANCH = $UBOOT_SOCFGPA_BRANCH"
+
+#------------------------------------------------------------------------------------------#
+# Set UB_CONFIG for each of the configurations
+#------------------------------------------------------------------------------------------#
+if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
+		UB_CONFIG="$MACHINE-socdk-atf"
+elif [[ "$MACHINE" == "arria10" || "$MACHINE" == "cyclone5" ]]; then
+	if [[ "$IMAGE" == "nand" || "$IMAGE" == "qspi" ]]; then
+		UB_CONFIG="$MACHINE-socdk-$IMAGE"
 	else
-		echo -e "\n[INFO] There is already an instance of bitbake process running in the background. Waiting.."
-		sleep `expr $RANDOM % 30`
+		UB_CONFIG="$MACHINE-socdk"
 	fi
-done
-}
+fi
+echo "UBOOT_CONFIG         = $UB_CONFIG"
+
+#------------------------------------------------------------------------------------------#
+# Set Arm-Trusted-Firmware version
+#------------------------------------------------------------------------------------------#
+export ATF_VER=v2.5.0
+echo "ATF_VERSION          = $ATF_VER"
+ATF_BRANCH=socfpga_$ATF_VER
+echo "ATF_BRANCH           = $ATF_BRANCH"
 
 #------------------------------------------------------------------------------------------#
 # Clean up the build workspace for subsequent build to happen smoothly
 #------------------------------------------------------------------------------------------#
-environment_cleanup() {
+build_setup() {
 	if [ -d "$WORKSPACE" ]; then
 		echo -e "\n[INFO] Cleanup the /tmp, /conf folders in the workspace for next build"
 		pushd $WORKSPACE > /dev/null
@@ -166,22 +103,26 @@ environment_cleanup() {
 	fi
 	
 	STAGING_FOLDER=$WORKSPACE/$MACHINE-$IMAGE-images
+	
+	echo -e "\n[INFO] Proceed with: update_meta"
 }
 
 #------------------------------------------------------------------------------------------#
 # Update existing meta layers or clone a new one if it does not exists
 #------------------------------------------------------------------------------------------#
-get_meta() {
+update_meta() {
 	pushd $WORKSPACE > /dev/null
 		# Update submodules
 		git submodule update --init --remote -r
 	popd > /dev/null
+	
+	echo -e "\n[INFO] Proceed with: yocto_setup"
 }
 
 #------------------------------------------------------------------------------------------#
 # Initialize Yocto build environment setup
 #------------------------------------------------------------------------------------------#
-yocto_build_setup() {
+yocto_setup() {
 	pushd $WORKSPACE > /dev/null
 		
 		# Setup Poky build environment
@@ -202,36 +143,33 @@ yocto_build_setup() {
 		sleep 5
 		echo -e "\n"
 
-		# Settings for local.conf
-		echo -e "\n[INFO] Update local.conf"
-		sed -i /MACHINE/d conf/local.conf
-		sed -i /UBOOT_CONFIG/d conf/local.conf
-		sed -i /IMAGE\_TYPE/d conf/local.conf
-		sed -i /SRC\_URI\_/d conf/local.conf
-
-		echo "MACHINE = \"$MACHINE\"" >> conf/local.conf
-		echo "DL_DIR = \"$WORKSPACE/downloads\"" >> conf/local.conf
-		echo "SSTATE_DIR ?= \"$WORKSPACE/state_cache\"" >> conf/local.conf
-		echo "IMAGE_TYPE:${MACHINE} = \"$IMAGE\"" >> conf/local.conf
-		echo 'DISTRO_FEATURES:append = " systemd"' >> conf/local.conf
-		echo 'VIRTUAL-RUNTIME_init_manager = "systemd"' >> conf/local.conf
-		echo "require conf/machine/$MACHINE-gsrd.conf" >> conf/local.conf
+		# Settings for site.conf
+		echo -e "\n[INFO] Creating site.conf: User changes will not be saved"
+		echo "MACHINE = \"$MACHINE\"" >> conf/site.conf
+		echo "DL_DIR = \"$WORKSPACE/downloads\"" >> conf/site.conf
+		echo "SSTATE_DIR ?= \"$WORKSPACE/state_cache\"" >> conf/site.conf
+		echo "IMAGE_TYPE:${MACHINE} = \"$IMAGE\"" >> conf/site.conf
+		echo 'DISTRO_FEATURES:append = " systemd"' >> conf/site.conf
+		echo 'VIRTUAL-RUNTIME_init_manager = "systemd"' >> conf/site.conf
+		echo "require conf/machine/$MACHINE-gsrd.conf" >> conf/site.conf
 		# Linux
-		echo 'PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"' >> conf/local.conf
-		echo "PREFERRED_VERSION_linux-socfpga-lts = \"`cut -d. -f1-2 <<< "$LINUX_VER"`%\"" >> conf/local.conf
+		echo 'PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"' >> conf/site.conf
+		echo "PREFERRED_VERSION_linux-socfpga-lts = \"`cut -d. -f1-2 <<< "$LINUX_VER"`%\"" >> conf/site.conf
 		# U-boot
-		echo 'PREFERRED_PROVIDER_virtual/bootloader = "u-boot-socfpga"' >> conf/local.conf
-		echo "UBOOT_CONFIG:${MACHINE} = \"$UB_CONFIG\"" >> conf/local.conf
-		echo "PREFERRED_VERSION_u-boot-socfpga = \"$UBOOT_VER%\"" >> conf/local.conf
+		echo 'PREFERRED_PROVIDER_virtual/bootloader = "u-boot-socfpga"' >> conf/site.conf
+		echo "UBOOT_CONFIG:${MACHINE} = \"$UB_CONFIG\"" >> conf/site.conf
+		echo "PREFERRED_VERSION_u-boot-socfpga = \"$UBOOT_VER%\"" >> conf/site.conf
 		# ATF
-		echo "PREFERRED_VERSION_arm-trusted-firmware = \"`cut -d. -f1-2 <<< "$ATF_VER"`\"" >> conf/local.conf
+		echo "PREFERRED_VERSION_arm-trusted-firmware = \"`cut -d. -f1-2 <<< "$ATF_VER"`\"" >> conf/site.conf
 	popd > /dev/null
+	
+	echo -e "\n[INFO] Proceed with: bitbake"
 }
 
 #------------------------------------------------------------------------------------------#
 # Clean Yocto build environment and start Bitbake process
 #------------------------------------------------------------------------------------------#
-build_linux_distro() {
+bitbake() {
 	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs > /dev/null
 		echo -e "\n[INFO] Clean up previous kernel build if any"
 		bitbake virtual/kernel -c cleanall
@@ -246,12 +184,14 @@ build_linux_distro() {
 			bitbake xvfb-console-image 2>&1
 		fi
 	popd > /dev/null
+	
+	echo -e "\n[INFO] Proceed with: package"
 }
 
 #------------------------------------------------------------------------------------------#
 # Package Yocto bitbake generated binaries
 #------------------------------------------------------------------------------------------#
-packaging() {
+package() {
 	echo -e "\n[INFO] Copy the build output and store in $STAGING_FOLDER"
 	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/images/$MACHINE/ > /dev/null
 
@@ -354,32 +294,6 @@ packaging() {
 		fi
 		cp -vrL ${MACHINE}_${IMAGE}_ghrd/ $STAGING_FOLDER/.
 	popd > /dev/null
-}
-
-while [ "$1" != "" ]; do
-	case $1 in
-		-i | --image )
-			shift
-			IMAGE=$1
-			;;
-		-h | --help )
-			usage
-			exit 1
-			;;
-		* )
-			usage
-			exit 1
-			;;
-	esac
-	shift
-done
 	
-environment_setup
-sanity_bitbake
-environment_cleanup
-get_meta
-yocto_build_setup
-build_linux_distro
-packaging
-
-exit 0
+	echo -e "\n[INFO] Completed: Binaries are store in $MACHINE-$IMAGE-images"
+}
