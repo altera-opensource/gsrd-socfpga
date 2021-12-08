@@ -165,13 +165,13 @@ yocto_setup() {
 		echo "PREFERRED_VERSION_arm-trusted-firmware = \"`cut -d. -f1-2 <<< "$ATF_VER"`\"" >> conf/site.conf
 	popd > /dev/null
 	
-	echo -e "\n[INFO] Proceed with: bitbake"
+	echo -e "\n[INFO] Proceed with: bitbake_image"
 }
 
 #------------------------------------------------------------------------------------------#
 # Clean Yocto build environment and start Bitbake process
 #------------------------------------------------------------------------------------------#
-bitbake() {
+bitbake_image() {
 	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs > /dev/null
 		echo -e "\n[INFO] Clean up previous kernel build if any"
 		bitbake virtual/kernel -c cleanall
