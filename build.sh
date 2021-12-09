@@ -149,7 +149,7 @@ yocto_setup() {
 		echo -e "\n[INFO] Creating site.conf: User changes will not be saved"
 		echo "MACHINE = \"$MACHINE\"" >> conf/site.conf
 		echo "DL_DIR = \"$WORKSPACE/downloads\"" >> conf/site.conf
-		echo "SSTATE_DIR ?= \"$WORKSPACE/state_cache\"" >> conf/site.conf
+		echo "SSTATE_DIR ?= \"$WORKSPACE/sstate_cache\"" >> conf/site.conf
 		echo "IMAGE_TYPE:${MACHINE} = \"$IMAGE\"" >> conf/site.conf
 		echo 'DISTRO_FEATURES:append = " systemd"' >> conf/site.conf
 		echo 'VIRTUAL-RUNTIME_init_manager = "systemd"' >> conf/site.conf
