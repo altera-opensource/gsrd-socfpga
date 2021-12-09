@@ -1,6 +1,6 @@
 # Intel SoCFPGA Golden Software Reference Design
 
-GSRD is an Embedded Linux Reference Distribution optimized for SoCFPGA.
+GSRD is an Embedded Linux Reference Distribution optimized for SoCFPGA.  
 It is based on Yocto Project Poky reference distribution.
 
 ## Meta Layers
@@ -14,12 +14,12 @@ Dependencies
 
 ## Using The Script
 
-1. Clone the repository
+1. Clone the repository  
 `$ git clone -b $Poky_Version https://gitlab.devtools.intel.com/psg-opensource/gsrd-socfpga.git`
-2. Sync the submodules
-`$ cd gsrd-socfpga`
+2. Sync the submodules  
+`$ cd gsrd-socfpga`  
 `$ git submodule update --init --remote -r`
-3. Source the script to export component version (Linux,U-Boot,ATF,Machine,Image)
+3. Source the script to export component version (Linux,U-Boot,ATF,Machine,Image)  
 
 |  Target   |            Command            |
 | --------- | ----------------------------- |
@@ -28,19 +28,22 @@ Dependencies
 | Arria10   | $ . arria10-$Image-build.sh   |
 | Cyclone V | $ . cyclone5-gsrd-build.sh    |
 
-4. Setup build environment and staging folder
+4. Setup build environment and staging folder  
 `$ build_setup`
-5. Update git submodules (meta layers)
+5. Update git submodules (meta layers)  
 `$ update_meta`
-6. Setup Yocto build configuration
+6. Setup Yocto build configuration  
 `$ yocto_setup`
-7. Perform Yocto bitbake to generate binaries
+7. OPTIONAL:  
+  Update/Replace custom GHRD design into $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files  
+  NOTE: Update/Replace the file with the same naming convention
+8. Perform Yocto bitbake to generate binaries  
 `$ bitbake_image`
-8. Package binaries into build folder
+9. Package binaries into build folder  
 `$ package`
 
 
-Supported Image Variant:
+Supported Image Variant:  
 
 |    Target    |              Image                           |
 | ------------ | -------------------------------------------- |
