@@ -165,6 +165,8 @@ yocto_setup() {
 		echo "PREFERRED_VERSION_arm-trusted-firmware = \"`cut -d. -f1-2 <<< "$ATF_VER"`\"" >> conf/site.conf
 	popd > /dev/null
 	
+	echo -e "\n[INFO] OPTIONAL: Update/Replace custom GHRD design into $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files"
+	echo -e "[INFO] NOTE: Update/Replace the file with the same naming convention"
 	echo -e "\n[INFO] Proceed with: bitbake_image"
 }
 
