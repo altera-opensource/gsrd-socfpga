@@ -76,6 +76,7 @@ ATF_BRANCH=socfpga_$ATF_VER
 echo "ATF_BRANCH           = $ATF_BRANCH"
 
 echo -e "\n[INFO] Proceed with: build_setup"
+echo -e "\n"
 
 #------------------------------------------------------------------------------------------#
 # Clean up the build workspace for subsequent build to happen smoothly
@@ -107,6 +108,7 @@ build_setup() {
 	STAGING_FOLDER=$WORKSPACE/$MACHINE-$IMAGE-images
 	
 	echo -e "\n[INFO] Proceed with: update_meta"
+	echo -e "\n"
 }
 
 #------------------------------------------------------------------------------------------#
@@ -119,6 +121,7 @@ update_meta() {
 	popd > /dev/null
 	
 	echo -e "\n[INFO] Proceed with: yocto_setup"
+	echo -e "\n"
 }
 
 #------------------------------------------------------------------------------------------#
@@ -166,8 +169,9 @@ yocto_setup() {
 	popd > /dev/null
 	
 	echo -e "\n[INFO] OPTIONAL: Update/Replace custom GHRD design into $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files"
-	echo -e "[INFO] NOTE: Update/Replace the file with the same naming convention"
+	echo -e "\n[INFO] NOTE: Update/Replace the file with the same naming convention"
 	echo -e "\n[INFO] Proceed with: bitbake_image"
+	echo -e "\n"
 }
 
 #------------------------------------------------------------------------------------------#
@@ -190,6 +194,7 @@ bitbake_image() {
 	popd > /dev/null
 	
 	echo -e "\n[INFO] Proceed with: package"
+	echo -e "\n"
 }
 
 #------------------------------------------------------------------------------------------#
@@ -300,4 +305,5 @@ package() {
 	popd > /dev/null
 	
 	echo -e "\n[INFO] Completed: Binaries are store in $MACHINE-$IMAGE-images"
+	echo -e "\n"
 }
