@@ -75,6 +75,12 @@ echo "ATF_VERSION          = $ATF_VER"
 ATF_BRANCH=socfpga_$ATF_VER
 echo "ATF_BRANCH           = $ATF_BRANCH"
 
+#------------------------------------------------------------------------------------------#
+# Set RBF source
+#------------------------------------------------------------------------------------------#
+export RBF=https://releases.rocketboards.org/release/2021.11/rbf-source/
+echo "RBF_SOURCE           = $RBF"
+
 echo -e "\n[INFO] Proceed with: build_setup"
 echo -e "\n"
 
@@ -168,8 +174,15 @@ yocto_setup() {
 		echo "PREFERRED_VERSION_arm-trusted-firmware = \"`cut -d. -f1-2 <<< "$ATF_VER"`\"" >> conf/site.conf
 	popd > /dev/null
 	
-	echo -e "\n[INFO] OPTIONAL: Update/Replace custom GHRD design into $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files"
-	echo -e "\n[INFO] NOTE: Update/Replace the file with the same naming convention"
+	# Download required rbf files from rocketboards.org
+	echo -e "\n[INFO] Downloading GHRD pre-built binaries from rocketboards.org ..."
+	mkdir -p $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files
+	pushd $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files > /dev/null
+		wget -np -r -R "index.html*" -e robots=off -nH --cut-dirs=3 $RBF
+	popd
+	echo -e "\n[INFO] RBF file is downloaded at $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files"
+	echo -e "\n[INFO] OPTIONAL: Update/Replace custom GHRD design in $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files"
+	echo -e "[INFO] NOTE: Update/Replace the file with the same naming convention"
 	echo -e "\n[INFO] Proceed with: bitbake_image"
 	echo -e "\n"
 }
