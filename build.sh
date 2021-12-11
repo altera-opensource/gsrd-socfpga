@@ -176,7 +176,6 @@ yocto_setup() {
 	
 	# Download required rbf files from rocketboards.org
 	echo -e "\n[INFO] Downloading GHRD pre-built binaries from rocketboards.org ..."
-	mkdir -p $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files
 	pushd $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files > /dev/null
 		wget -np -r -R "index.html*" -e robots=off -nH --cut-dirs=3 $RBF
 	popd
