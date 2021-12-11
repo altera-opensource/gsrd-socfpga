@@ -176,11 +176,12 @@ yocto_setup() {
 	
 	# Download required rbf files from rocketboards.org
 	echo -e "\n[INFO] Downloading GHRD pre-built binaries from rocketboards.org ..."
-	pushd $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files > /dev/null
-		wget -np -r -R "index.html*" -e robots=off -nH --cut-dirs=3 $RBF
-	popd
-	echo -e "\n[INFO] RBF file is downloaded at $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files"
-	echo -e "\n[INFO] OPTIONAL: Update/Replace custom GHRD design in $WORKSPACE/meta-intel-fpga-refdes/recipe-bsp/ghrd/files"
+	pushd $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd > /dev/null
+		mkdir -p files
+		wget -np -r -R "index.html*" -e robots=off -nH --cut-dirs=3 -P files $RBF
+	popd > /dev/null
+	echo -e "\n[INFO] RBF file is downloaded at $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files"
+	echo -e "\n[INFO] OPTIONAL: Update/Replace custom GHRD design in $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files"
 	echo -e "[INFO] NOTE: Update/Replace the file with the same naming convention"
 	echo -e "\n[INFO] Proceed with: bitbake_image"
 	echo -e "\n"
