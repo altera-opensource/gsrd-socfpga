@@ -81,7 +81,10 @@ echo "ATF_BRANCH           = $ATF_BRANCH"
 export RBF=https://releases.rocketboards.org/release/2021.11/rbf-source/
 echo "RBF_SOURCE           = $RBF"
 
-echo -e "\n[INFO] Proceed with: build_setup"
+echo -e "\n[INFO] To build step-by-step with customization:"
+echo -e "[INFO] Proceed with: build_setup"
+echo -e "\n[INFO] To build default GSRD setup:"
+echo -e "[INFO] Proceed with: build_default"
 echo -e "\n"
 
 #------------------------------------------------------------------------------------------#
@@ -329,4 +332,12 @@ package() {
 	
 	echo -e "\n[INFO] Completed: Binaries are store in $MACHINE-$IMAGE-images"
 	echo -e "\n"
+}
+
+build_default() {
+	build_setup
+	update_meta
+	yocto_setup
+	bitbake_image
+	package
 }
