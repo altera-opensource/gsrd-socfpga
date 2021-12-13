@@ -330,7 +330,7 @@ package() {
 		cp -vrL ${MACHINE}_${IMAGE}_ghrd/ $STAGING_FOLDER/.
 	popd > /dev/null
 	
-	echo -e "\n[INFO] Completed: Binaries are store in $MACHINE-$IMAGE-images"
+	echo -e "\n[INFO] Completed: Binaries are store in $WORKSPACE/$MACHINE-$IMAGE-images"
 	echo -e "\n"
 }
 
