@@ -181,8 +181,18 @@ yocto_setup() {
 		wget -np -r -R "index.html*" -e robots=off -nH --cut-dirs=3 -P files $RBF
 	popd > /dev/null
 	echo -e "\n[INFO] RBF file is downloaded at $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files"
-	echo -e "\n[INFO] OPTIONAL: Update/Replace custom GHRD design in $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files"
-	echo -e "[INFO] NOTE: Update/Replace the file with the same naming convention"
+	echo -e "\n[INFO] OPTIONAL: Update/Replace custom GHRD design in:"
+	echo -e "                 $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files"
+	echo -e "                 NOTE: Update/Replace the file with the same naming convention"
+	echo -e "\n[INFO] OPTIONAL: For Agilex and Stratix10"
+	echo -e "                 Edit uboot.txt, uboot_script.its in:"
+	echo -e "                 $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/u-boot/files"
+	echo -e "                 Edit fit_kernel_(agilex/stratix10).its in:"
+	echo -e "                 $WORKSPACE/meta-intel-fpga-refdes/recipes-kernel/linux/linux-socfpga-lts"
+	echo -e "                 For Cyclone5"
+	echo -e "                 Edit cyclone5_u-boot.txt in:"
+	echo -e "                 $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/u-boot/files"
+
 	echo -e "\n[INFO] Proceed with: bitbake_image"
 	echo -e "\n"
 }
