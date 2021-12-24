@@ -75,16 +75,10 @@ echo "ATF_VERSION          = $ATF_VER"
 ATF_BRANCH=socfpga_$ATF_VER
 echo "ATF_BRANCH           = $ATF_BRANCH"
 
-#------------------------------------------------------------------------------------------#
-# Set RBF source
-#------------------------------------------------------------------------------------------#
-export RBF=https://releases.rocketboards.org/release/2021.11/rbf-source/
-echo "RBF_SOURCE           = $RBF"
-
-echo -e "\n[INFO] To build step-by-step with customization:"
-echo -e "[INFO] Proceed with: build_setup"
 echo -e "\n[INFO] To build default GSRD setup:"
 echo -e "[INFO] Proceed with: build_default"
+echo -e "\n[INFO] To build step-by-step with customization:"
+echo -e "[INFO] Proceed with: build_setup"
 echo -e "\n"
 
 #------------------------------------------------------------------------------------------#
@@ -115,31 +109,24 @@ build_setup() {
 	fi
 	
 	STAGING_FOLDER=$WORKSPACE/$MACHINE-$IMAGE-images
-	
-	echo -e "\n[INFO] Proceed with: update_meta"
-	echo -e "\n"
-}
 
 #------------------------------------------------------------------------------------------#
 # Update existing meta layers or clone a new one if it does not exists
 #------------------------------------------------------------------------------------------#
-update_meta() {
 	pushd $WORKSPACE > /dev/null
 		# Update submodules
 		git submodule update --init --remote -r
 	popd > /dev/null
-	
-	echo -e "\n[INFO] Proceed with: yocto_setup"
-	echo -e "\n"
-}
 
 #------------------------------------------------------------------------------------------#
 # Initialize Yocto build environment setup
 #------------------------------------------------------------------------------------------#
-yocto_setup() {
 	pushd $WORKSPACE > /dev/null
 		
 		# Setup Poky build environment
+		pushd meta-intel-fpga-refdes/recipes-bsp/ghrd > /dev/null
+			mkdir -p ./files
+		popd
 		echo -e "\n[INFO] Source poky/oe-init-build-env to initialize poky build environment"
 		source poky/oe-init-build-env $WORKSPACE/$MACHINE-$IMAGE-rootfs/
 
@@ -176,25 +163,6 @@ yocto_setup() {
 		# ATF
 		echo "PREFERRED_VERSION_arm-trusted-firmware = \"`cut -d. -f1-2 <<< "$ATF_VER"`\"" >> conf/site.conf
 	popd > /dev/null
-	
-	# Download required rbf files from rocketboards.org
-	echo -e "\n[INFO] Downloading GHRD pre-built binaries from rocketboards.org ..."
-	pushd $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd > /dev/null
-		mkdir -p files
-		wget -np -r -R "index.html*" -e robots=off -nH --cut-dirs=3 -P files $RBF
-	popd > /dev/null
-	echo -e "\n[INFO] RBF file is downloaded at $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files"
-	echo -e "\n[INFO] OPTIONAL: Update/Replace custom GHRD design in:"
-	echo -e "                 $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files"
-	echo -e "                 NOTE: Update/Replace the file with the same naming convention"
-	echo -e "\n[INFO] OPTIONAL: For Agilex and Stratix10"
-	echo -e "                 Edit uboot.txt, uboot_script.its in:"
-	echo -e "                 $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/u-boot/files"
-	echo -e "                 Edit fit_kernel_(agilex/stratix10).its in:"
-	echo -e "                 $WORKSPACE/meta-intel-fpga-refdes/recipes-kernel/linux/linux-socfpga-lts"
-	echo -e "                 For Cyclone5"
-	echo -e "                 Edit cyclone5_u-boot.txt in:"
-	echo -e "                 $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/u-boot/files"
 
 	echo -e "\n[INFO] Proceed with: bitbake_image"
 	echo -e "\n"
@@ -336,8 +304,6 @@ package() {
 
 build_default() {
 	build_setup
-	update_meta
-	yocto_setup
 	bitbake_image
 	package
 }
