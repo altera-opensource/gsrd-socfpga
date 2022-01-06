@@ -257,6 +257,7 @@ package() {
 		cp -vL spl/u-boot-spl-dtb.bin $ub_cp_destination
 		cp -vL spl/u-boot-spl.dtb $ub_cp_destination
 		cp -vL spl/u-boot-spl.map $ub_cp_destination
+		cp -vL spl/u-boot-spl.bin $ub_cp_destination
 
 		if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
 			cp -vL spl/u-boot-spl-dtb.hex $ub_cp_destination
