@@ -162,6 +162,9 @@ build_setup() {
 		echo "PREFERRED_VERSION_u-boot-socfpga = \"$UBOOT_VER%\"" >> conf/site.conf
 		# ATF
 		echo "PREFERRED_VERSION_arm-trusted-firmware = \"`cut -d. -f1-2 <<< "$ATF_VER"`\"" >> conf/site.conf
+		# Blacklist kernel-modules to prevent autoload from udev
+		echo 'KERNEL_MODULE_PROBECONF = "intel_fcs"' >> conf/site.conf
+		echo 'module_conf_intel_fcs = "blacklist intel_fcs"' >> conf/site.conf
 	popd > /dev/null
 
 	echo -e "\n[INFO] Proceed with: bitbake_image"
