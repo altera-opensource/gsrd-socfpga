@@ -1,7 +1,7 @@
 [submodule "poky"]
 	path = poky
 	url = https://git.yoctoproject.org/git/poky
-	branch = honister
+	branch = master
 [submodule "meta-intel-fpga"]
 	path = meta-intel-fpga
 	url = https://git.yoctoproject.org/git/meta-intel-fpga
@@ -13,4 +13,4 @@
 [submodule "meta-openembedded"]
 	path = meta-openembedded
 	url = https://git.openembedded.org/meta-openembedded
-	branch = honister
+	branch = master
