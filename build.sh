@@ -218,6 +218,7 @@ package() {
 
 		cp -vrL zImage $STAGING_FOLDER/			|| echo "[INFO] No zImage found."
 		cp -vrL Image $STAGING_FOLDER/			|| echo "[INFO] No Image found."
+		cp -vrL Image.lzma $STAGING_FOLDER/		|| echo "[INFO] No Image.lzma found."
 
 		if [ "$MACHINE" == "arria10" ]; then
 			cp -vrL *.itb $STAGING_FOLDER/		|| echo "[INFO] No .itb file found."
