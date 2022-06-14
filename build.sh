@@ -84,6 +84,9 @@ echo -e "\n"
 #------------------------------------------------------------------------------------------#
 # Clean up the build workspace for subsequent build to happen smoothly
 #------------------------------------------------------------------------------------------#
+# Setup staging folder for binaries generated
+STAGING_FOLDER=$WORKSPACE/$MACHINE-$IMAGE-images
+
 build_setup() {
 	if [ -d "$WORKSPACE" ]; then
 		echo -e "\n[INFO] Cleanup the /tmp, /conf folders in the workspace for next build"
@@ -107,8 +110,6 @@ build_setup() {
 		echo -e "\n[INFO] Create image staging area"
 		mkdir -p $WORKSPACE/$MACHINE-$IMAGE-images
 	fi
-	
-	STAGING_FOLDER=$WORKSPACE/$MACHINE-$IMAGE-images
 
 #------------------------------------------------------------------------------------------#
 # Update existing meta layers or clone a new one if it does not exists
