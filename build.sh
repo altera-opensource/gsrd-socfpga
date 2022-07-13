@@ -227,11 +227,14 @@ package() {
 			cp -vrL kernel.* $STAGING_FOLDER/	|| echo "[INFO] No .itb file found."
 		fi
 
-		cp -vrL *.dtb $STAGING_FOLDER/	|| echo "[INFO] No dtb found."
-		if [[ "$MACHINE" == "arria10" && "$IMAGE" == "nand" ]]; then
+		if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
+			cp -vrL devicetree/* $STAGING_FOLDER/	|| echo "[INFO] No dtb found."
+		elif [[ "$MACHINE" == "arria10" && "$IMAGE" == "nand" ]]; then
 			cp -vrL socfpga_arria10_socdk_nand.dtb $STAGING_FOLDER/		|| echo "[INFO] No dtb found."
 		elif [[ "$MACHINE" == "arria10" && "$IMAGE" == "qspi" ]]; then
 			cp -vrL socfpga_arria10_socdk_qspi.dtb $STAGING_FOLDER/		|| echo "[INFO] No dtb found."
+		else
+			cp -vrL *.dtb $STAGING_FOLDER/	|| echo "[INFO] No dtb found."
 		fi
 	popd > /dev/null
 
