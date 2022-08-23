@@ -39,7 +39,7 @@ export $IMAGE
 #------------------------------------------------------------------------------------------#
 # Set Linux Version
 #------------------------------------------------------------------------------------------#
-export LINUX_VER=5.15.30
+export LINUX_VER=5.15.50
 echo "LINUX_VERSION        = $LINUX_VER"
 LINUX_SOCFPGA_BRANCH=socfpga-$LINUX_VER-lts
 echo "LINUX_SOCFPGA_BRANCH = $LINUX_SOCFPGA_BRANCH"
@@ -47,7 +47,7 @@ echo "LINUX_SOCFPGA_BRANCH = $LINUX_SOCFPGA_BRANCH"
 #------------------------------------------------------------------------------------------#
 # Set default U-Boot Version
 #------------------------------------------------------------------------------------------#
-export UBOOT_VER=v2022.01
+export UBOOT_VER=v2022.04
 export UBOOT_REL=
 echo "UBOOT_VERSION        = $UBOOT_VER$UBOOT_REL"
 UBOOT_SOCFGPA_BRANCH=socfpga_$UBOOT_VER$UBOOT_REL
@@ -70,7 +70,7 @@ echo "UBOOT_CONFIG         = $UB_CONFIG"
 #------------------------------------------------------------------------------------------#
 # Set Arm-Trusted-Firmware version
 #------------------------------------------------------------------------------------------#
-export ATF_VER=v2.6.1
+export ATF_VER=v2.7.0
 echo "ATF_VERSION          = $ATF_VER"
 ATF_BRANCH=socfpga_$ATF_VER
 echo "ATF_BRANCH           = $ATF_BRANCH"
