@@ -166,6 +166,9 @@ build_setup() {
 		# Blacklist kernel-modules to prevent autoload from udev
 		echo 'KERNEL_MODULE_PROBECONF = "intel_fcs"' >> conf/site.conf
 		echo 'module_conf_intel_fcs = "blacklist intel_fcs"' >> conf/site.conf
+		# Archive source file
+		echo 'INHERIT += "archiver"' >> conf/site.conf
+		echo 'ARCHIVER_MODE[src] = "original"' >> conf/site.conf
 	popd > /dev/null
 
 	echo -e "\n[INFO] Proceed with: bitbake_image"
@@ -286,7 +289,7 @@ package() {
 		chmod 744 u-boot.itb || echo "[INFO] File u-boot.itb not found for this build configuration."
 	popd > /dev/null
 
-	# Copy u-boot script to u-boot staging folder
+	# Copy u-boot script / extlinux.conf to u-boot staging folder
 	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/images/$MACHINE/ > /dev/null
 		if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
 			cp -vL u-boot.txt $ub_cp_destination
@@ -298,15 +301,19 @@ package() {
 			cp -vL u-boot.txt $ub_cp_destination
 			cp -vL u-boot.scr $ub_cp_destination
 		fi
-	popd > /dev/null
-
-	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/images/$MACHINE > /dev/null
 		if [[ "$MACHINE" == "arria10" || "$MACHINE" == "cyclone5" ]]; then
 			cp -vL extlinux.conf $STAGING_FOLDER
 		fi
+	popd > /dev/null
+
+	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/images/$MACHINE/ > /dev/null
 		cp -vrL ${MACHINE}_${IMAGE}_ghrd/ $STAGING_FOLDER/.
 	popd > /dev/null
 	
+	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/ > /dev/null
+		cp -r sources $STAGING_FOLDER/.
+	popd > /dev/null
+
 	echo -e "\n[INFO] Completed: Binaries are store in $WORKSPACE/$MACHINE-$IMAGE-images"
 	echo -e "\n"
 }
