@@ -164,8 +164,9 @@ build_setup() {
 		# ATF
 		echo "PREFERRED_VERSION_arm-trusted-firmware = \"`cut -d. -f1-2 <<< "$ATF_VER"`\"" >> conf/site.conf
 		# Blacklist kernel-modules to prevent autoload from udev
-		echo 'KERNEL_MODULE_PROBECONF = "intel_fcs"' >> conf/site.conf
+		echo 'KERNEL_MODULE_PROBECONF = "intel_fcs cfg80211"' >> conf/site.conf
 		echo 'module_conf_intel_fcs = "blacklist intel_fcs"' >> conf/site.conf
+		echo 'module_conf_cfg80211 = "blacklist cfg80211"' >> conf/site.conf
 		# Archive source file
 		echo 'INHERIT += "archiver"' >> conf/site.conf
 		echo 'ARCHIVER_MODE[src] = "original"' >> conf/site.conf
