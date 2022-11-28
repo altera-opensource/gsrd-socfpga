@@ -56,7 +56,7 @@ echo "UBOOT_SOCFGPA_BRANCH = $UBOOT_SOCFGPA_BRANCH"
 #------------------------------------------------------------------------------------------#
 # Set UB_CONFIG for each of the configurations
 #------------------------------------------------------------------------------------------#
-if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
+if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]]; then
 		UB_CONFIG="$MACHINE-socdk-atf"
 elif [[ "$MACHINE" == "arria10" || "$MACHINE" == "cyclone5" ]]; then
 	if [[ "$IMAGE" == "nand" || "$IMAGE" == "qspi" ]]; then
@@ -210,17 +210,6 @@ package() {
 		cp -vrL *-$MACHINE.jffs2 $STAGING_FOLDER/	|| echo "[INFO] No jffs2 found."
 		cp -vrL *-$MACHINE.wic $STAGING_FOLDER/		|| echo "[INFO] No wic found."
 		cp -vrL *-$MACHINE.ubifs $STAGING_FOLDER/	|| echo "[INFO] No ubifs found."
-		
-		# Generate sdimage.tar.gz
-		pushd $STAGING_FOLDER
-			tar cvzf sdimage.tar.gz gsrd-console-image-$MACHINE.wic
-			md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
-			xz --best console-image-minimal-$MACHINE.wic
-			if [ "$MACHINE" == "arria10" ]; then
-				xz --best xvfb-console-image-$MACHINE.wic
-			fi
-		popd
-
 		cp -vrL zImage $STAGING_FOLDER/			|| echo "[INFO] No zImage found."
 		cp -vrL Image $STAGING_FOLDER/			|| echo "[INFO] No Image found."
 		cp -vrL Image.lzma $STAGING_FOLDER/		|| echo "[INFO] No Image.lzma found."
@@ -231,7 +220,7 @@ package() {
 			cp -vrL kernel.* $STAGING_FOLDER/	|| echo "[INFO] No .itb file found."
 		fi
 
-		if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
+		if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]]; then
 			cp -vrL devicetree/* $STAGING_FOLDER/	|| echo "[INFO] No dtb found."
 		elif [[ "$MACHINE" == "arria10" && "$IMAGE" == "nand" ]]; then
 			cp -vrL socfpga_arria10_socdk_nand.dtb $STAGING_FOLDER/		|| echo "[INFO] No dtb found."
@@ -242,15 +231,15 @@ package() {
 		fi
 	popd > /dev/null
 
-	if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
+	if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]]; then
 		mkdir -p $STAGING_FOLDER/u-boot-$MACHINE-socdk-$IMAGE-atf
 		ub_cp_destination=$STAGING_FOLDER/u-boot-$MACHINE-socdk-$IMAGE-atf
 	elif [[ "$MACHINE" == "arria10" || "$MACHINE" == "cyclone5" ]]; then
 		mkdir -p $STAGING_FOLDER/u-boot-$MACHINE-socdk-$IMAGE
 		ub_cp_destination=$STAGING_FOLDER/u-boot-$MACHINE-socdk-$IMAGE
 	fi
-	
-	if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]] ; then
+
+	if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]] ; then
 		pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/work/$MACHINE-poky-*/u-boot-socfpga/1_v20*/build/socfpga_${MACHINE}_defconfig/
 	elif [[ "$MACHINE" == "arria10" || "$MACHINE" == "cyclone5" ]] ; then
 		if [[ "$IMAGE" == "nand" || "$IMAGE" == "qspi" ]] ; then
@@ -271,7 +260,7 @@ package() {
 		cp -vL spl/u-boot-spl.map $ub_cp_destination
 		cp -vL spl/u-boot-spl.bin $ub_cp_destination
 
-		if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
+		if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]]; then
 			cp -vL spl/u-boot-spl-dtb.hex $ub_cp_destination
 			cp -vL u-boot.itb $ub_cp_destination
 		elif [[ "$MACHINE" == "cyclone5" || "$MACHINE" == "arria10" ]]; then
@@ -292,7 +281,7 @@ package() {
 
 	# Copy u-boot script / extlinux.conf to u-boot staging folder
 	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/images/$MACHINE/ > /dev/null
-		if [[ "$MACHINE" == "agilex" || "$MACHINE" == "stratix10" ]]; then
+		if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]]; then
 			cp -vL u-boot.txt $ub_cp_destination
 			cp -vL boot.scr.uimg $ub_cp_destination
 		elif [[ "$MACHINE" == "arria10" && "$IMAGE" == "pr" ]]; then
@@ -310,10 +299,42 @@ package() {
 	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/images/$MACHINE/ > /dev/null
 		cp -vrL ${MACHINE}_${IMAGE}_ghrd/ $STAGING_FOLDER/.
 	popd > /dev/null
-	
+
 	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/ > /dev/null
 		cp -r sources $STAGING_FOLDER/.
 	popd > /dev/null
+
+	pushd $STAGING_FOLDER
+		if [ "$MACHINE" == "agilex_fm61" ]; then
+			for file in *_fm61*; do
+				mv "$file" "${file/_fm61/}"
+			done
+		elif [ "$MACHINE" == "agilex_fm86" ]; then
+			for file in *_fm86*; do
+				mv "$file" "${file/_fm86/}"
+			done
+		elif [ "$MACHINE" == "agilex_fm87" ]; then
+			for file in *_fm87*; do
+				mv "$file" "${file/_fm87/}"
+			done
+		fi
+
+		# Generate sdimage.tar.gz
+	    	# Use name agilex for fm61, fm86 & 87
+	    	if [[ "$MACHINE" == *"agilex"* ]] ; then
+	        	tar cvzf sdimage.tar.gz gsrd-console-image-agilex.wic
+            		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
+            		xz --best console-image-minimal-agilex.wic
+	    	else
+            		tar cvzf sdimage.tar.gz gsrd-console-image-$MACHINE.wic
+            		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
+            		xz --best console-image-minimal-$MACHINE.wic
+	    	fi
+
+		if [ "$MACHINE" == "arria10" ]; then
+                    	xz --best xvfb-console-image-$MACHINE.wic
+	         fi
+        popd
 
 	echo -e "\n[INFO] Completed: Binaries are store in $WORKSPACE/$MACHINE-$IMAGE-images"
 	echo -e "\n"
