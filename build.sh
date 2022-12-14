@@ -239,15 +239,7 @@ package() {
 		ub_cp_destination=$STAGING_FOLDER/u-boot-$MACHINE-socdk-$IMAGE
 	fi
 
-	if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]] ; then
-		pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/work/$MACHINE-poky-*/u-boot-socfpga/1_v20*/build/socfpga_${MACHINE}_defconfig/
-	elif [[ "$MACHINE" == "arria10" || "$MACHINE" == "cyclone5" ]] ; then
-		if [[ "$IMAGE" == "nand" || "$IMAGE" == "qspi" ]] ; then
-			pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/work/$MACHINE-poky-*/u-boot-socfpga/1_v20*/build/socfpga_${MACHINE}_${IMAGE}_defconfig/
-		else
-			pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/work/$MACHINE-poky-*/u-boot-socfpga/1_v20*/build/socfpga_${MACHINE}_defconfig/
-		fi
-	fi
+	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/work/$MACHINE-poky-*/u-boot-socfpga/1_v20*/build/*defconfig/
 		cp -vL u-boot $ub_cp_destination
 		cp -vL u-boot-dtb.bin $ub_cp_destination
 		cp -vL u-boot-dtb.img $ub_cp_destination
