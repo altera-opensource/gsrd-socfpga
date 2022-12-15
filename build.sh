@@ -75,8 +75,10 @@ echo "ATF_VERSION          = $ATF_VER"
 ATF_BRANCH=socfpga_$ATF_VER
 echo "ATF_BRANCH           = $ATF_BRANCH"
 
-echo -e "\n[INFO] To build default GSRD setup:"
+echo -e "\n[INFO] To build default GSRD Image:"
 echo -e "[INFO] Proceed with: build_default"
+echo -e "\n[INFO] To build default GSRD Image + eSDK:"
+echo -e "[INFO] Proceed with: build_esdk"
 echo -e "\n[INFO] To build step-by-step with customization:"
 echo -e "[INFO] Proceed with: build_setup"
 echo -e "\n"
@@ -172,7 +174,10 @@ build_setup() {
 		echo 'ARCHIVER_MODE[src] = "original"' >> conf/site.conf
 	popd > /dev/null
 
-	echo -e "\n[INFO] Proceed with: bitbake_image"
+	echo -e "\n[INFO] To build GSRD Image:"
+	echo -e "[INFO] Proceed with: bitbake_image"
+	echo -e "\n[INFO] To build GSRD Image + eSDK:"
+	echo -e "[INFO] Proceed with: bitbake_esdk"
 	echo -e "\n"
 }
 
@@ -197,6 +202,26 @@ bitbake_image() {
 	
 	echo -e "\n[INFO] Proceed with: package"
 	echo -e "\n"
+}
+
+bitbake_esdk() {
+       pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs > /dev/null
+               echo -e "\n[INFO] Clean up previous kernel build if any"
+               bitbake virtual/kernel -c cleanall
+               echo -e "\n[INFO] Clean up previous u-boot build if any"
+               bitbake u-boot-socfpga -c cleanall
+               echo -e "\n[INFO] Clean up previous ghrd build if any"
+               bitbake hw-ref-design -c cleanall
+
+               echo -e "\n[INFO] Start bitbake process for target config.."
+               bitbake console-image-minimal gsrd-console-image -c populate_sdk_ext 2>&1
+               if [ "$MACHINE" == "arria10" ]; then
+                       bitbake xvfb-console-image -c populate_sdk_ext 2>&1
+               fi
+       popd > /dev/null
+
+       echo -e "\n[INFO] Proceed with: package"
+       echo -e "\n"
 }
 
 #------------------------------------------------------------------------------------------#
@@ -326,7 +351,15 @@ package() {
 		if [ "$MACHINE" == "arria10" ]; then
                     	xz --best xvfb-console-image-$MACHINE.wic
 	         fi
-        popd
+    popd
+
+	# Deploy eSDK if it exist
+	if [[ -d $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/sdk ]]; then
+		pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/sdk/ > /dev/null
+			mkdir -p $STAGING_FOLDER/esdk
+			cp -vL poky*.sh $STAGING_FOLDER/esdk/.
+		popd > /dev/null
+	fi
 
 	echo -e "\n[INFO] Completed: Binaries are store in $WORKSPACE/$MACHINE-$IMAGE-images"
 	echo -e "\n"
@@ -335,5 +368,11 @@ package() {
 build_default() {
 	build_setup
 	bitbake_image
+	package
+}
+
+build_esdk() {
+	build_setup
+	bitbake_esdk
 	package
 }
