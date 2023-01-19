@@ -192,6 +192,8 @@ bitbake_image() {
 		bitbake u-boot-socfpga -c cleanall
 		echo -e "\n[INFO] Clean up previous ghrd build if any"
 		bitbake hw-ref-design -c cleanall
+		echo -e "\n[INFO] Clean up previous dtb build if any"
+		bitbake device-tree -c cleanall
 
 		echo -e "\n[INFO] Start bitbake process for target config.."
 		bitbake console-image-minimal gsrd-console-image 2>&1
