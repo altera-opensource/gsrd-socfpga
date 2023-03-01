@@ -237,6 +237,7 @@ package() {
 		cp -vrL *-$MACHINE.jffs2 $STAGING_FOLDER/	|| echo "[INFO] No jffs2 found."
 		cp -vrL *-$MACHINE.wic $STAGING_FOLDER/		|| echo "[INFO] No wic found."
 		cp -vrL *-$MACHINE.ubifs $STAGING_FOLDER/	|| echo "[INFO] No ubifs found."
+		cp -vrL *-$MACHINE.manifest $STAGING_FOLDER/	|| echo "[INFO] No manifest found."
 		cp -vrL zImage $STAGING_FOLDER/			|| echo "[INFO] No zImage found."
 		cp -vrL Image $STAGING_FOLDER/			|| echo "[INFO] No Image found."
 		cp -vrL Image.lzma $STAGING_FOLDER/		|| echo "[INFO] No Image.lzma found."
