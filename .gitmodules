@@ -5,11 +5,11 @@
 [submodule "meta-intel-fpga"]
 	path = meta-intel-fpga
 	url = https://git.yoctoproject.org/git/meta-intel-fpga
-	branch = langdale
+	branch = socfpga_agilex5-23.1_RC
 [submodule "meta-intel-fpga-refdes"]
 	path = meta-intel-fpga-refdes
 	url = https://github.com/altera-opensource/meta-intel-fpga-refdes.git
-	branch = langdale
+	branch = socfpga_agilex5-23.1_RC
 [submodule "meta-openembedded"]
 	path = meta-openembedded
 	url = https://git.openembedded.org/meta-openembedded
