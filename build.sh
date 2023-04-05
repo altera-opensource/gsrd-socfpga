@@ -195,7 +195,7 @@ bitbake_image() {
 		bitbake u-boot-socfpga -c cleanall
 		echo -e "\n[INFO] Clean up previous ghrd build if any"
 		bitbake hw-ref-design -c cleanall
-		if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]]; then
+		if [[ "$MACHINE" == *"agilex_"* || "$MACHINE" == "stratix10" ]]; then
 			echo -e "\n[INFO] Clean up previous dtb build if any"
 			bitbake device-tree -c cleanall
 		fi
