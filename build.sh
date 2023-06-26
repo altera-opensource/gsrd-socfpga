@@ -57,7 +57,13 @@ echo "UBOOT_SOCFPGA_BRANCH = $UBOOT_SOCFPGA_BRANCH"
 # Set UB_CONFIG for each of the configurations
 #------------------------------------------------------------------------------------------#
 if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]]; then
+	if [[ "$MACHINE" == *"fm61_linear"* ]]; then
+		UB_CONFIG="agilex_fm61-socdk-atf"
+	elif [[ "$MACHINE" == *"fm87_linear"* ]]; then
+		UB_CONFIG="agilex_fm87-socdk-atf"
+	else
 		UB_CONFIG="$MACHINE-socdk-atf"
+	fi
 elif [[ "$MACHINE" == "arria10" || "$MACHINE" == "cyclone5" ]]; then
 	if [[ "$IMAGE" == "nand" || "$IMAGE" == "qspi" ]]; then
 		UB_CONFIG="$MACHINE-socdk-$IMAGE"
@@ -338,6 +344,10 @@ package() {
 			for file in *_fm61*; do
 				mv "$file" "${file/_fm61/}"
 			done
+		elif [ "$MACHINE" == "agilex_fm61_linear" ]; then
+			for file in *_fm61_linear*; do
+				mv "$file" "${file/_fm61_linear/}"
+			done
 		elif [ "$MACHINE" == "agilex_fm86" ]; then
 			for file in *_fm86*; do
 				mv "$file" "${file/_fm86/}"
@@ -345,6 +355,10 @@ package() {
 		elif [ "$MACHINE" == "agilex_fm87" ]; then
 			for file in *_fm87*; do
 				mv "$file" "${file/_fm87/}"
+			done
+		elif [ "$MACHINE" == "agilex_fm87_linear" ]; then
+			for file in *_fm87_linear*; do
+				mv "$file" "${file/_fm87_linear/}"
 			done
 		fi
 
