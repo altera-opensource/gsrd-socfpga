@@ -57,10 +57,10 @@ echo "UBOOT_SOCFPGA_BRANCH = $UBOOT_SOCFPGA_BRANCH"
 # Set UB_CONFIG for each of the configurations
 #------------------------------------------------------------------------------------------#
 if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]]; then
-	if [[ "$MACHINE" == *"fm61_linear"* ]]; then
-		UB_CONFIG="agilex_fm61-socdk-atf"
-	elif [[ "$MACHINE" == *"fm87_linear"* ]]; then
-		UB_CONFIG="agilex_fm87-socdk-atf"
+	if [[ "$MACHINE" == *"dk_si_agf014eb"* ]]; then
+		UB_CONFIG="agilex7_dk_si_agf014ea-socdk-atf"
+	elif [[ "$MACHINE" == *"dk_si_agi027fa"* ]]; then
+		UB_CONFIG="agilex7_dk_si_agi027fb-socdk-atf"
 	else
 		UB_CONFIG="$MACHINE-socdk-atf"
 	fi
@@ -165,17 +165,14 @@ build_setup() {
 		# Linux
 		echo 'PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"' >> conf/site.conf
 		echo "PREFERRED_VERSION_linux-socfpga-lts = \"`cut -d. -f1-2 <<< "$LINUX_VER"`%\"" >> conf/site.conf
-		echo 'KERNEL_REPO = "git://github.com/intel-innersource/applications.fpga.soc.linux-socfpga.git"' >> conf/site.conf
 		echo "KBRANCH = \"$LINUX_SOCFPGA_BRANCH\"" >> conf/site.conf
 		# U-boot
 		echo 'PREFERRED_PROVIDER_virtual/bootloader = "u-boot-socfpga"' >> conf/site.conf
 		echo "UBOOT_CONFIG:${MACHINE} = \"$UB_CONFIG\"" >> conf/site.conf
 		echo "PREFERRED_VERSION_u-boot-socfpga = \"$UBOOT_VER%\"" >> conf/site.conf
-		echo 'UBOOT_REPO = "git://github.com/intel-innersource/applications.fpga.soc.uboot-socfpga.git"' >> conf/site.conf
 		echo "UBOOT_BRANCH = \"$UBOOT_SOCFPGA_BRANCH\"" >> conf/site.conf
 		# ATF
 		echo "PREFERRED_VERSION_arm-trusted-firmware = \"`cut -d. -f1-2 <<< "$ATF_VER"`\"" >> conf/site.conf
-		echo 'ATF_REPO = "git://github.com/intel-innersource/applications.fpga.soc.arm-trusted-firmware.git"' >> conf/site.conf
 		echo "ATF_BRANCH = \"$ATF_BRANCH\"" >> conf/site.conf
 		# Blacklist kernel-modules to prevent autoload from udev
 		echo 'KERNEL_MODULE_PROBECONF = "intel_fcs cfg80211"' >> conf/site.conf
@@ -204,7 +201,7 @@ bitbake_image() {
 		bitbake u-boot-socfpga -c cleanall
 		echo -e "\n[INFO] Clean up previous ghrd build if any"
 		bitbake hw-ref-design -c cleanall
-		if [[ "$MACHINE" == *"agilex_"* || "$MACHINE" == "stratix10" ]]; then
+		if [[ "$MACHINE" == *"agilex7_"* || "$MACHINE" == "stratix10" ]]; then
 			echo -e "\n[INFO] Clean up previous dtb build if any"
 			bitbake device-tree -c cleanall
 		fi
@@ -263,7 +260,7 @@ package() {
 			cp -vrL kernel.* $STAGING_FOLDER/	|| echo "[INFO] No .itb file found."
 		fi
 
-		if [[ "$MACHINE" == *"agilex_"* || "$MACHINE" == "stratix10" ]]; then
+		if [[ "$MACHINE" == *"agilex7_"* || "$MACHINE" == "stratix10" ]]; then
 			cp -vrL devicetree/* $STAGING_FOLDER/	|| echo "[INFO] No dtb found."
 		elif [[ "$MACHINE" == "arria10" && "$IMAGE" == "nand" ]]; then
 			cp -vrL socfpga_arria10_socdk_nand.dtb $STAGING_FOLDER/		|| echo "[INFO] No dtb found."
@@ -340,31 +337,31 @@ package() {
 	popd > /dev/null
 
 	pushd $STAGING_FOLDER
-		if [ "$MACHINE" == "agilex_fm61" ]; then
-			for file in *_fm61*; do
-				mv "$file" "${file/_fm61/}"
+		if [ "$MACHINE" == "agilex7_dk_si_agf014ea" ]; then
+			for file in *_dk_si_agf014ea*; do
+				mv "$file" "${file/_dk_si_agf014ea/}"
 			done
-		elif [ "$MACHINE" == "agilex_fm61_linear" ]; then
-			for file in *_fm61_linear*; do
-				mv "$file" "${file/_fm61_linear/}"
+		elif [ "$MACHINE" == "agilex7_dk_si_agf014eb" ]; then
+			for file in *_dk_si_agf014eb*; do
+				mv "$file" "${file/_dk_si_agf014eb/}"
 			done
-		elif [ "$MACHINE" == "agilex_fm86" ]; then
-			for file in *_fm86*; do
-				mv "$file" "${file/_fm86/}"
+		elif [ "$MACHINE" == "agilex7_dk_dev_agf027f1es" ]; then
+			for file in *_dk_dev_agf027f1es*; do
+				mv "$file" "${file/_dk_dev_agf027f1es/}"
 			done
-		elif [ "$MACHINE" == "agilex_fm87" ]; then
-			for file in *_fm87*; do
-				mv "$file" "${file/_fm87/}"
+		elif [ "$MACHINE" == "agilex7_dk_si_agi027fb" ]; then
+			for file in *_dk_si_agi027fb*; do
+				mv "$file" "${file/_dk_si_agi027fb/}"
 			done
-		elif [ "$MACHINE" == "agilex_fm87_linear" ]; then
-			for file in *_fm87_linear*; do
-				mv "$file" "${file/_fm87_linear/}"
+		elif [ "$MACHINE" == "agilex7_dk_si_agi027fa" ]; then
+			for file in *_dk_si_agi027fa*; do
+				mv "$file" "${file/_dk_si_agi027fa/}"
 			done
 		fi
 
 		# Generate sdimage.tar.gz
-	    	# Use name agilex for fm61, fm86 & 87
-	    	if [[ "$MACHINE" == *"agilex_"* ]] ; then
+	    	# Use name agilex for agilex7 devices
+	    	if [[ "$MACHINE" == *"agilex7_"* ]] ; then
 	        	tar cvzf sdimage.tar.gz gsrd-console-image-agilex.wic
             		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
             		xz --best console-image-minimal-agilex.wic
