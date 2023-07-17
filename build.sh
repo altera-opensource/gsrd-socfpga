@@ -360,11 +360,11 @@ package() {
 		fi
 
 		# Generate sdimage.tar.gz
-	    	# Use name agilex for agilex7 devices
+	    	# Use name agilex7 for agilex7 devices
 	    	if [[ "$MACHINE" == *"agilex7_"* ]] ; then
-	        	tar cvzf sdimage.tar.gz gsrd-console-image-agilex.wic
+	        	tar cvzf sdimage.tar.gz gsrd-console-image-agilex7.wic
             		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
-            		xz --best console-image-minimal-agilex.wic
+            		xz --best console-image-minimal-agilex7.wic
 	    	else
             		tar cvzf sdimage.tar.gz gsrd-console-image-$MACHINE.wic
             		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
