@@ -287,6 +287,8 @@ package() {
 		cp -vL u-boot.dtb $ub_cp_destination
 		cp -vL u-boot.img $ub_cp_destination
 		cp -vL u-boot.map $ub_cp_destination
+		cp -vL u-boot.sym $ub_cp_destination
+		cp -vL System.map $ub_cp_destination
 		cp -vL spl/u-boot-spl $ub_cp_destination
 		cp -vL spl/u-boot-spl-dtb.bin $ub_cp_destination
 		cp -vL spl/u-boot-spl.dtb $ub_cp_destination
