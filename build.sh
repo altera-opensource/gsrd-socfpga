@@ -159,7 +159,7 @@ build_setup() {
 		echo "DL_DIR = \"$WORKSPACE/downloads\"" >> conf/site.conf
 		echo "SSTATE_DIR ?= \"$WORKSPACE/sstate_cache\"" >> conf/site.conf
 		echo "IMAGE_TYPE:${MACHINE} = \"$IMAGE\"" >> conf/site.conf
-		echo 'DISTRO_FEATURES:append = " systemd"' >> conf/site.conf
+		echo 'DISTRO_FEATURES:append = " systemd usrmerge"' >> conf/site.conf
 		echo 'VIRTUAL-RUNTIME_init_manager = "systemd"' >> conf/site.conf
 		echo "require conf/machine/$MACHINE-gsrd.conf" >> conf/site.conf
 		# Linux
