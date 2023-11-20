@@ -244,16 +244,22 @@ package() {
 	echo -e "\n[INFO] Copy the build output and store in $STAGING_FOLDER"
 	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/images/$MACHINE/ > /dev/null
 
-		cp -vrL *-$MACHINE.tar.gz $STAGING_FOLDER/	|| echo "[INFO] No tar.gz found."
-		cp -vrL *-$MACHINE.jffs2 $STAGING_FOLDER/	|| echo "[INFO] No jffs2 found."
-		cp -vrL *-$MACHINE.wic $STAGING_FOLDER/		|| echo "[INFO] No wic found."
-		cp -vrL *-${MACHINE}_nand.ubifs $STAGING_FOLDER/       	|| echo "[INFO] No nand ubifs found."
-		cp -vrL *-${MACHINE}_nor.ubifs $STAGING_FOLDER/       	|| echo "[INFO] No nor ubifs found."
-		cp -vrL *-$MACHINE.cpio* $STAGING_FOLDER/	|| echo "[INFO] No .cpio found."
-		cp -vrL *-$MACHINE.manifest $STAGING_FOLDER/	|| echo "[INFO] No manifest found."
+		cp -vrL *-$MACHINE.rootfs.tar.gz $STAGING_FOLDER/	|| echo "[INFO] No tar.gz found."
+		cp -vrL *-$MACHINE.rootfs.jffs2 $STAGING_FOLDER/	|| echo "[INFO] No jffs2 found."
+		cp -vrL *-$MACHINE.rootfs.wic $STAGING_FOLDER/		|| echo "[INFO] No wic found."
+		cp -vrL *-${MACHINE}.rootfs_nand.ubifs $STAGING_FOLDER/       	|| echo "[INFO] No nand ubifs found."
+		cp -vrL *-${MACHINE}.rootfs_nor.ubifs $STAGING_FOLDER/       	|| echo "[INFO] No nor ubifs found."
+		cp -vrL *-$MACHINE.rootfs.cpio* $STAGING_FOLDER/	|| echo "[INFO] No .cpio found."
+		cp -vrL *-$MACHINE.rootfs.manifest $STAGING_FOLDER/	|| echo "[INFO] No manifest found."
 		cp -vrL zImage $STAGING_FOLDER/			|| echo "[INFO] No zImage found."
 		cp -vrL Image $STAGING_FOLDER/			|| echo "[INFO] No Image found."
 		cp -vrL Image.lzma $STAGING_FOLDER/		|| echo "[INFO] No Image.lzma found."
+
+		pushd $STAGING_FOLDER
+			for file in *.rootfs*; do
+  				mv "$file" "${file/.rootfs/}"
+     		done
+		popd
 
 		if [ "$MACHINE" == "arria10" ]; then
 			cp -vrL *.itb $STAGING_FOLDER/		|| echo "[INFO] No .itb file found."
@@ -280,7 +286,7 @@ package() {
 		ub_cp_destination=$STAGING_FOLDER/u-boot-$MACHINE-socdk-$IMAGE
 	fi
 
-	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/work/$MACHINE-poky-*/u-boot-socfpga/1_v20*/build/*defconfig/
+	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/work/$MACHINE-poky-*/u-boot-socfpga/v20*/build/*defconfig/
 		cp -vL u-boot $ub_cp_destination
 		cp -vL u-boot-dtb.bin $ub_cp_destination
 		cp -vL u-boot-dtb.img $ub_cp_destination
