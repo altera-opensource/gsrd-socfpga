@@ -366,6 +366,10 @@ package() {
 			for file in *_dk_si_agi027fa*; do
 				mv "$file" "${file/_dk_si_agi027fa/}"
 			done
+		elif [ "$MACHINE" == "agilex7_dk_dev_agm039fes" ]; then
+			for file in *_dk_dev_agm039fes*; do
+				mv "$file" "${file/_dk_dev_agm039fes/}"
+			done
 		fi
 
 		# Generate sdimage.tar.gz
