@@ -27,6 +27,7 @@ Dependencies
 | Agilex7 DK-DEV-AGF027F1ES  |   gsrd                                       |
 | Agilex7 DK-SI-AGI027FB     |   gsrd                                       |
 | Agilex7 DK-SI-AGI027FA     |   gsrd                                       |
+| Agilex7 DK-DEV-AGM039FES   |   gsrd                                       |
 | Stratix10                  |   gsrd [ sgmii + pr + qspi ]                 |
 | Arria10                    |   gsrd, qspi, nand, pcie, pr, sgmii, tse     |
 | Cyclone5                   |   gsrd                                       |
@@ -50,6 +51,7 @@ Dependencies
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh  |
 | Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh     |
 | Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh     |
+| Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh   |
 | Stratix10                  | $ . stratix10-gsrd-build.sh                  |
 | Arria10                    | $ . arria10-$Image-build.sh                  |
 | Cyclone V                  | $ . cyclone5-gsrd-build.sh                   |
@@ -74,6 +76,7 @@ Dependencies
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh  |
 | Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh     |
 | Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh     |
+| Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh   |
 | Stratix10                  | $ . stratix10-gsrd-build.sh                  |
 | Arria10                    | $ . arria10-$Image-build.sh                  |
 | Cyclone V                  | $ . cyclone5-gsrd-build.sh                   |
@@ -98,6 +101,7 @@ Dependencies
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh  |
 | Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh     |
 | Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh     |
+| Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh   |
 | Stratix10                  | $ . stratix10-gsrd-build.sh                  |
 | Arria10                    | $ . arria10-$Image-build.sh                  |
 | Cyclone V                  | $ . cyclone5-gsrd-build.sh                   |
@@ -123,6 +127,8 @@ Dependencies
                                   agilex7_dk_si_agi027fb_gsrd_ghrd.core.rbf  
                        For Agilex7 DK-SI-AGI027FA:-  
                                   agilex7_dk_si_agi027fa_gsrd_ghrd.core.rbf 
+                       For Agilex7 DK-DEV-AGM039FES:-  
+                                  agilex7_dk_dev_agm039fes_gsrd_ghrd.core.rbf 
                        For Stratix10:-  
                                   stratix10_gsrd_ghrd.core.rbf  
                                   stratix10_nand_ghrd.core.rbf  
