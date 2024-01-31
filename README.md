@@ -21,7 +21,8 @@ Dependencies
 
 |    Target                  |              Image                           |
 | -------------------------- | -------------------------------------------- |
-| Agilex5 DEV KIT            |   gsrd                                       |
+| Agilex5 Dev Kit            |   gsrd                                       |
+| Agilex5 mUDV CVR           |   gsrd                                       |
 
 
 ## Default GSRD Setup
@@ -35,7 +36,8 @@ Dependencies
 
 |  Target                    |            Command                           |
 | -------------------------- | -------------------------------------------- |
-| Agilex5 DEV KIT            | $ . agilex5_devkit-gsrd-build.sh             |
+| Agilex5 Dev Kit            | $ . agilex5_devkit-gsrd-build.sh             |
+| Agilex5 mUDV CVR           | $ . agilex5_mudv_cvr-gsrd-build.sh           |
 
 4. Build default GSRD setup  
 `$ build_default`  
@@ -51,7 +53,8 @@ Dependencies
 
 |  Target                    |            Command                           |
 | -------------------------- | -------------------------------------------- |
-| Agilex5 DEV KIT            | $ . agilex5_devkit-gsrd-build.sh             |
+| Agilex5 Dev Kit            | $ . agilex5_devkit-gsrd-build.sh             |
+| Agilex5 mUDV CVR           | $ . agilex5_mudv_cvr-gsrd-build.sh           |
 
 4. Build default GSRD setup + eSDK  
 `$ build_esdk`  
@@ -67,7 +70,8 @@ Dependencies
 
 |  Target                    |            Command                           |
 | -------------------------- | -------------------------------------------- |
-| Agilex5 DEV KIT            | $ . agilex5_devkit-gsrd-build.sh             |
+| Agilex5 Dev Kit            | $ . agilex5_devkit-gsrd-build.sh             |
+| Agilex5 mUDV CVR           | $ . agilex5_mudv_cvr-gsrd-build.sh           |
 
 4. Setup build environment  
 `$ build_setup`
@@ -76,7 +80,13 @@ Dependencies
               1. Add custom GHRD design in:  
                  $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files  
                  NOTE: Update/Replace the file with the same naming convention  
-                       For Agilex5 DEV KIT:-  
+                       For Agilex5 Dev Kit:-  
+                                  agilex5_devkit_gsrd_ghrd.core.rbf
+                                  agilex5_devkit_nand_ghrd.core.rbf
+                                  agilex5_devkit_emmc_ghrd.core.rbf
+                                  agilex5_devkit_aic0_ghrd.core.rbf
+                                  agilex5_devkit_debug2_ghrd.core.rbf
+                       For Agilex5 mUDV CVR:-  
                                   agilex5_devkit_gsrd_ghrd.core.rbf
                                   agilex5_devkit_nand_ghrd.core.rbf
                                   agilex5_devkit_emmc_ghrd.core.rbf
@@ -98,7 +108,7 @@ Dependencies
                  For Agilex 5 DEV KIT:-  
                      Edit uboot.txt, uboot_script.its in:  
                      $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/u-boot/files  
-                     Edit fit_kernel_agilex5_devkit.its in:  
+                     Edit fit_kernel_(agilex5_*).its in:  
                      $WORKSPACE/meta-intel-fpga-refdes/recipes-kernel/linux/linux-socfpga-lts  
 </pre>
 6. Perform Yocto bitbake to generate binaries  
