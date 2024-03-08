@@ -14,3 +14,7 @@
 	path = meta-openembedded
 	url = https://git.openembedded.org/meta-openembedded
 	branch = nanbield
+[submodule "meta-clang"]
+	path = meta-clang
+	url = https://github.com/kraj/meta-clang.git
+	branch = nanbield
