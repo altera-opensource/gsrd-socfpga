@@ -22,6 +22,7 @@ Dependencies
 |    Target                  |              Image                           |
 | -------------------------- | -------------------------------------------- |
 | Agilex5                    |   gsrd                                       |
+| Agilex5 Dev Kit            |   gsrd                                       |
 | Agilex7 DK-SI-AGF014EA     |   gsrd [ sgmii + pr + qspi ]                 |
 | Agilex7 DK-SI-AGF014EB     |   gsrd [ sgmii + pr + qspi ]                 |
 | Agilex7 DK-DEV-AGF027F1ES  |   gsrd                                       |
@@ -46,6 +47,7 @@ Dependencies
 |  Target                    |            Command                           |
 | -------------------------- | -------------------------------------------- |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                    |
+| Agilex5 Dev Kit            | $ . agilex5_devkit-gsrd-build.sh             |
 | Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh     |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh     |
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh  |
@@ -71,6 +73,7 @@ Dependencies
 |  Target                    |            Command                           |
 | -------------------------- | -------------------------------------------- |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                    |
+| Agilex5 Dev Kit            | $ . agilex5_devkit-gsrd-build.sh             |
 | Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh     |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh     |
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh  |
@@ -96,6 +99,7 @@ Dependencies
 |  Target                    |            Command                           |
 | -------------------------- | -------------------------------------------- |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                    |
+| Agilex5 Dev Kit            | $ . agilex5_devkit-gsrd-build.sh             |
 | Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh     |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh     |
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh  |
@@ -113,7 +117,11 @@ Dependencies
               1. Add custom GHRD design in:  
                  $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files  
                  NOTE: Update/Replace the file with the same naming convention  
-                       For Agilex7 DK-SI-AGF014EA:-  
+					   For Agilex5 Dev Kit:-  
+                                  agilex5_devkit_gsrd_ghrd.core.rbf 
+                                  agilex5_devkit_nand_ghrd.core.rbf   
+                                  agilex5_devkit_emmc_ghrd.core.rbf    
+					   For Agilex7 DK-SI-AGF014EA:-  
                                   agilex7_dk_si_agf014ea_gsrd_ghrd.core.rbf  
                                   agilex7_dk_si_agf014ea_nand_ghrd.core.rbf  
                                   agilex7_dk_si_agf014ea_pr_ghrd.core.rbf  
