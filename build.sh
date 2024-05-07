@@ -61,6 +61,12 @@ if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]]; then
 		UB_CONFIG="agilex7_dk_si_agf014ea-socdk-atf"
 	elif [[ "$MACHINE" == *"dk_si_agi027fa"* ]]; then
 		UB_CONFIG="agilex7_dk_si_agi027fb-socdk-atf"
+	elif [[ "$MACHINE" == "agilex5_devkit" ]]; then
+		if [[ "$IMAGE" == "nand" ]]; then
+			UB_CONFIG="$MACHINE-socdk-$IMAGE-atf"
+		else
+			UB_CONFIG="$MACHINE-socdk-atf"
+		fi
 	else
 		UB_CONFIG="$MACHINE-socdk-atf"
 	fi
