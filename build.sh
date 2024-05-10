@@ -274,7 +274,7 @@ package() {
 			cp -vrL kernel.* $STAGING_FOLDER/	|| echo "[INFO] No .itb file found."
 		fi
 
-		if [[ "$MACHINE" == *"agilex7_"* || "$MACHINE" == "stratix10" ]]; then
+		if [[ "$MACHINE" == *"agilex5_"* || "$MACHINE" == *"agilex7_"* || "$MACHINE" == "stratix10" ]]; then
 			cp -vrL devicetree/* $STAGING_FOLDER/	|| echo "[INFO] No dtb found."
 		elif [[ "$MACHINE" == "arria10" && "$IMAGE" == "nand" ]]; then
 			cp -vrL socfpga_arria10_socdk_nand.dtb $STAGING_FOLDER/		|| echo "[INFO] No dtb found."
