@@ -1,20 +1,20 @@
 [submodule "poky"]
 	path = poky
 	url = https://git.yoctoproject.org/git/poky
-	branch = nanbield
+	branch = master
 [submodule "meta-intel-fpga"]
 	path = meta-intel-fpga
 	url = https://git.yoctoproject.org/git/meta-intel-fpga
-	branch = nanbield
+	branch = master
 [submodule "meta-intel-fpga-refdes"]
 	path = meta-intel-fpga-refdes
 	url = https://github.com/altera-opensource/meta-intel-fpga-refdes.git
-	branch = nanbield
+	branch = master
 [submodule "meta-openembedded"]
 	path = meta-openembedded
 	url = https://git.openembedded.org/meta-openembedded
-	branch = nanbield
+	branch = master
 [submodule "meta-clang"]
 	path = meta-clang
 	url = https://github.com/kraj/meta-clang.git
-	branch = nanbield
+	branch = master
