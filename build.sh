@@ -387,6 +387,10 @@ package() {
 			for file in *_dk_a5e065bb32aes1*; do
 				mv "$file" "${file/_dk_a5e065bb32aes1/}"
 			done
+		elif [ "$MACHINE" == "agilex5_dk_a5e013bb32aesi0" ]; then
+			for file in *_dk_a5e013bb32aesi0*; do
+				mv "$file" "${file/_dk_a5e013bb32aesi0/}"
+			done
 		elif [ "$MACHINE" == "stratix10_htile" ]; then
 			for file in *_htile*; do
 				mv "$file" "${file/_htile/}"
@@ -403,6 +407,10 @@ package() {
 	        	tar cvzf sdimage.tar.gz gsrd-console-image-stratix10.wic
             		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
             		xz --best console-image-minimal-stratix10.wic
+	    	if [[ "$MACHINE" == *"agilex5_dk_"* ]] ; then
+	        	tar cvzf sdimage.tar.gz gsrd-console-image-agilex5.wic
+            		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
+            		xz --best console-image-minimal-agilex5.wic
 	    	else
             		tar cvzf sdimage.tar.gz gsrd-console-image-$MACHINE.wic
             		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
