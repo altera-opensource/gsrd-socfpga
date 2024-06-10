@@ -59,7 +59,7 @@ echo "UBOOT_SOCFPGA_BRANCH = $UBOOT_SOCFPGA_BRANCH"
 if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]]; then
 	if [[ "$MACHINE" == *"dk_si_agf014eb"* ]]; then
 		UB_CONFIG="agilex7_dk_si_agf014ea-socdk-atf"
-	elif [[ "$MACHINE" == *"dk_si_agi027fa"* ]]; then
+	elif [[ "$MACHINE" == *"dk_si_agi027f"* ]]; then
 		UB_CONFIG="agilex7_dk_si_agi027fb-socdk-atf"
 	elif [[ "$MACHINE" == "agilex5_devkit" ]]; then
 		if [[ "$IMAGE" == "nand" ]]; then
@@ -372,6 +372,10 @@ package() {
 		elif [ "$MACHINE" == "agilex7_dk_si_agi027fa" ]; then
 			for file in *_dk_si_agi027fa*; do
 				mv "$file" "${file/_dk_si_agi027fa/}"
+			done
+		elif [ "$MACHINE" == "agilex7_dk_si_agi027fc" ]; then
+			for file in *_dk_si_agi027fc*; do
+				mv "$file" "${file/_dk_si_agi027fc/}"
 			done
 		elif [ "$MACHINE" == "agilex7_dk_dev_agm039fes" ]; then
 			for file in *_dk_dev_agm039fes*; do
