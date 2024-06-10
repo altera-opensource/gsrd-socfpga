@@ -1,20 +1,20 @@
 [submodule "poky"]
 	path = poky
 	url = https://git.yoctoproject.org/git/poky
-	branch = master
+	branch = scarthgap
 [submodule "meta-intel-fpga"]
 	path = meta-intel-fpga
 	url = https://git.yoctoproject.org/git/meta-intel-fpga
-	branch = master
+	branch = scarthgap
 [submodule "meta-intel-fpga-refdes"]
 	path = meta-intel-fpga-refdes
 	url = https://github.com/altera-opensource/meta-intel-fpga-refdes.git
-	branch = master
+	branch = scarthgap
 [submodule "meta-openembedded"]
 	path = meta-openembedded
 	url = https://git.openembedded.org/meta-openembedded
-	branch = master
+	branch = scarthgap
 [submodule "meta-clang"]
 	path = meta-clang
 	url = https://github.com/kraj/meta-clang.git
-	branch = master
+	branch = scarthgap
