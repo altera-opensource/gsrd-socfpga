@@ -61,7 +61,7 @@ if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == "stratix10" ]]; then
 		UB_CONFIG="agilex7_dk_si_agf014ea-socdk-atf"
 	elif [[ "$MACHINE" == *"dk_si_agi027f"* ]]; then
 		UB_CONFIG="agilex7_dk_si_agi027fb-socdk-atf"
-	elif [[ "$MACHINE" == "agilex5_devkit" ]]; then
+	elif [[ "$MACHINE" == "agilex5_dk_a5e065bb32aes1" ]]; then
 		if [[ "$IMAGE" == "nand" ]]; then
 			UB_CONFIG="$MACHINE-socdk-$IMAGE-atf"
 		else
@@ -380,6 +380,10 @@ package() {
 		elif [ "$MACHINE" == "agilex7_dk_dev_agm039fes" ]; then
 			for file in *_dk_dev_agm039fes*; do
 				mv "$file" "${file/_dk_dev_agm039fes/}"
+			done
+		elif [ "$MACHINE" == "agilex5_dk_a5e065bb32aes1" ]; then
+			for file in *_dk_a5e065bb32aes1*; do
+				mv "$file" "${file/_dk_a5e065bb32aes1/}"
 			done
 		fi
 
