@@ -403,11 +403,11 @@ package() {
 	        	tar cvzf sdimage.tar.gz gsrd-console-image-agilex7.wic
             		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
             		xz --best console-image-minimal-agilex7.wic
-	    	if [[ "$MACHINE" == *"stratix10_"* ]] ; then
+	    	elif [[ "$MACHINE" == *"stratix10_"* ]] ; then
 	        	tar cvzf sdimage.tar.gz gsrd-console-image-stratix10.wic
             		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
             		xz --best console-image-minimal-stratix10.wic
-	    	if [[ "$MACHINE" == *"agilex5_dk_"* ]] ; then
+	    	elif [[ "$MACHINE" == *"agilex5_dk_"* ]] ; then
 	        	tar cvzf sdimage.tar.gz gsrd-console-image-agilex5.wic
             		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
             		xz --best console-image-minimal-agilex5.wic
