@@ -391,6 +391,10 @@ package() {
 			for file in *_dk_a5e013bb32aesi0*; do
 				mv "$file" "${file/_dk_a5e013bb32aesi0/}"
 			done
+		elif [ "$MACHINE" == "agilex5_modular" ]; then
+			for file in *_modular*; do
+				mv "$file" "${file/_modular/}"
+			done
 		elif [ "$MACHINE" == "stratix10_htile" ]; then
 			for file in *_htile*; do
 				mv "$file" "${file/_htile/}"
@@ -399,15 +403,15 @@ package() {
 
 		# Generate sdimage.tar.gz
 	    	# Use name agilex7 for agilex7 devices
-	    	if [[ "$MACHINE" == *"agilex7_"* ]] ; then
+	    	if [[ "$MACHINE" == *"agilex7_"* ]]; then
 	        	tar cvzf sdimage.tar.gz gsrd-console-image-agilex7.wic
             		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
             		xz --best console-image-minimal-agilex7.wic
-	    	elif [[ "$MACHINE" == *"stratix10_"* ]] ; then
+	    	elif [[ "$MACHINE" == *"stratix10_"* ]]; then
 	        	tar cvzf sdimage.tar.gz gsrd-console-image-stratix10.wic
             		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
             		xz --best console-image-minimal-stratix10.wic
-	    	elif [[ "$MACHINE" == *"agilex5_dk_"* ]] ; then
+	    	elif [[ "$MACHINE" == *"agilex5_dk_"* || "$MACHINE" == *"agilex5_modular"* ]]; then
 	        	tar cvzf sdimage.tar.gz gsrd-console-image-agilex5.wic
             		md5sum sdimage.tar.gz > sdimage.tar.gz.md5sum
             		xz --best console-image-minimal-agilex5.wic
