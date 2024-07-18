@@ -22,7 +22,8 @@ Dependencies
 |    Target                  |              Image                           |
 | -------------------------- | -------------------------------------------- |
 | Agilex5                    |   gsrd                                       |
-| Agilex5 Dev Kit            |   gsrd                                       |
+| Agilex5 DK-A5E065BB32AES1  |   gsrd [ qspi + emmc ], nand                 |
+| Agilex5 Modular            |   gsrd                                       |
 | Agilex7 DK-SI-AGF014EA     |   gsrd [ sgmii + pr + qspi ]                 |
 | Agilex7 DK-SI-AGF014EB     |   gsrd [ sgmii + pr + qspi ]                 |
 | Agilex7 DK-DEV-AGF027F1ES  |   gsrd                                       |
@@ -44,19 +45,20 @@ Dependencies
 `$ git submodule update --init --remote -r`
 3. Source the script to export component version (Linux,U-Boot,ATF,Machine,Image)  
 
-|  Target                    |            Command                           |
-| -------------------------- | -------------------------------------------- |
-| Agilex5                    | $ . agilex5-gsrd-build.sh                    |
-| Agilex5 Dev Kit            | $ . agilex5_devkit-gsrd-build.sh             |
-| Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh     |
-| Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh     |
-| Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh  |
-| Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh     |
-| Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh     |
-| Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh   |
-| Stratix10                  | $ . stratix10-gsrd-build.sh                  |
-| Arria10                    | $ . arria10-$Image-build.sh                  |
-| Cyclone V                  | $ . cyclone5-gsrd-build.sh                   |
+|  Target                    |            Command                             |
+| -------------------------- | ---------------------------------------------- |
+| Agilex5                    | $ . agilex5-gsrd-build.sh                      |
+| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
+| Agilex5 Modular            | $ . agilex5_modular-gsrd-build.sh              |
+| Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
+| Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
+| Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
+| Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh       |
+| Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh       |
+| Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
+| Stratix10                  | $ . stratix10-gsrd-build.sh                    |
+| Arria10                    | $ . arria10-$Image-build.sh                    |
+| Cyclone V                  | $ . cyclone5-gsrd-build.sh                     |
 
 4. Build default GSRD setup  
 `$ build_default`  
@@ -70,19 +72,20 @@ Dependencies
 `$ git submodule update --init --remote -r`
 3. Source the script to export component version (Linux,U-Boot,ATF,Machine,Image)  
 
-|  Target                    |            Command                           |
-| -------------------------- | -------------------------------------------- |
-| Agilex5                    | $ . agilex5-gsrd-build.sh                    |
-| Agilex5 Dev Kit            | $ . agilex5_devkit-gsrd-build.sh             |
-| Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh     |
-| Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh     |
-| Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh  |
-| Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh     |
-| Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh     |
-| Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh   |
-| Stratix10                  | $ . stratix10-gsrd-build.sh                  |
-| Arria10                    | $ . arria10-$Image-build.sh                  |
-| Cyclone V                  | $ . cyclone5-gsrd-build.sh                   |
+|  Target                    |            Command                             |
+| -------------------------- | ---------------------------------------------- |
+| Agilex5                    | $ . agilex5-gsrd-build.sh                      |
+| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
+| Agilex5 Modular            | $ . agilex5_modular-gsrd-build.sh              |
+| Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
+| Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
+| Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
+| Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh       |
+| Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh       |
+| Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
+| Stratix10                  | $ . stratix10-gsrd-build.sh                    |
+| Arria10                    | $ . arria10-$Image-build.sh                    |
+| Cyclone V                  | $ . cyclone5-gsrd-build.sh                     |
 
 4. Build default GSRD setup + eSDK  
 `$ build_esdk`  
@@ -96,19 +99,20 @@ Dependencies
 `$ git submodule update --init --remote -r`
 3. Source the script to export component version (Linux,U-Boot,ATF,Machine,Image)  
 
-|  Target                    |            Command                           |
-| -------------------------- | -------------------------------------------- |
-| Agilex5                    | $ . agilex5-gsrd-build.sh                    |
-| Agilex5 Dev Kit            | $ . agilex5_devkit-gsrd-build.sh             |
-| Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh     |
-| Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh     |
-| Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh  |
-| Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh     |
-| Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh     |
-| Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh   |
-| Stratix10                  | $ . stratix10-gsrd-build.sh                  |
-| Arria10                    | $ . arria10-$Image-build.sh                  |
-| Cyclone V                  | $ . cyclone5-gsrd-build.sh                   |
+|  Target                    |            Command                             |
+| -------------------------- | ---------------------------------------------- |
+| Agilex5                    | $ . agilex5-gsrd-build.sh                      |
+| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
+| Agilex5 Modular            | $ . agilex5_modular-gsrd-build.sh              |
+| Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
+| Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
+| Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
+| Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh       |
+| Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh       |
+| Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
+| Stratix10                  | $ . stratix10-gsrd-build.sh                    |
+| Arria10                    | $ . arria10-$Image-build.sh                    |
+| Cyclone V                  | $ . cyclone5-gsrd-build.sh                     |
 
 4. Setup build environment  
 `$ build_setup`
@@ -117,10 +121,12 @@ Dependencies
               1. Add custom GHRD design in:  
                  $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files  
                  NOTE: Update/Replace the file with the same naming convention  
-					   For Agilex5 Dev Kit:-  
-                                  agilex5_devkit_gsrd_ghrd.core.rbf 
-                                  agilex5_devkit_nand_ghrd.core.rbf   
-                                  agilex5_devkit_emmc_ghrd.core.rbf    
+					   For Agilex5 DK-A5E065BB32AES1:-  
+                                  agilex5_dk_a5e065bb32aes1_gsrd_ghrd.core.rbf 
+                                  agilex5_dk_a5e065bb32aes1_nand_ghrd.core.rbf   
+                                  agilex5_dk_a5e065bb32aes1_emmc_ghrd.core.rbf  
+					   For Agilex5 Modular:-  
+                                  agilex5_modular_gsrd_ghrd.core.rbf 
 					   For Agilex7 DK-SI-AGF014EA:-  
                                   agilex7_dk_si_agf014ea_gsrd_ghrd.core.rbf  
                                   agilex7_dk_si_agf014ea_nand_ghrd.core.rbf  
