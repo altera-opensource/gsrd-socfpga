@@ -132,7 +132,7 @@ build_setup() {
 #------------------------------------------------------------------------------------------#
 	pushd $WORKSPACE > /dev/null
 		# Update submodules
-		git submodule update --init --remote -r
+		git submodule update --init -r
 	popd > /dev/null
 
 #------------------------------------------------------------------------------------------#
