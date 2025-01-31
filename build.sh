@@ -95,6 +95,8 @@ echo -e "\n[INFO] To build default GSRD Image + eSDK:"
 echo -e "[INFO] Proceed with: build_esdk"
 echo -e "\n[INFO] To build step-by-step with customization:"
 echo -e "[INFO] Proceed with: build_setup"
+echo -e "\n[INFO] To build default GSRD Image + Xen Hypervisor:"
+echo -e "[INFO] Proceed with: build_hyp"
 echo -e "\n"
 
 #------------------------------------------------------------------------------------------#
@@ -190,6 +192,17 @@ build_setup() {
 		# Archive source file
 		echo 'INHERIT += "archiver"' >> conf/site.conf
 		echo 'ARCHIVER_MODE[src] = "original"' >> conf/site.conf
+
+		# Setting for Hypervisor build
+		if [ "$HYP_BUILD" -eq 1 ]; then
+			bitbake-layers add-layer ../meta-openembedded/meta-filesystems
+			bitbake-layers add-layer ../meta-virtualization
+
+			echo 'IMAGE_FSTYPES:append = " cpio cpio.gz cpio.gz.u-boot ext3 jffs2 tar.gz multiubi"' >> conf/site.conf
+			echo 'DISTRO_FEATURES:append = " virtualization xen"' >> conf/site.conf
+			echo 'IMAGE_INSTALL:append = " xen-tools"' >> conf/site.conf
+			echo 'HYP_BUILD = "1"' >> conf/site.conf
+		fi
 	popd > /dev/null
 
 	echo -e "\n[INFO] To build GSRD Image:"
@@ -217,6 +230,11 @@ bitbake_image() {
 
 		echo -e "\n[INFO] Start bitbake process for target config.."
 		bitbake console-image-minimal gsrd-console-image 2>&1
+
+		if [ "$HYP_BUILD" -eq 1 ]; then
+			bitbake xen-image-minimal console-image-minimal gsrd-console-image 2>&1
+		fi
+
 		if [ "$MACHINE" == "arria10" ]; then
 			bitbake xvfb-console-image 2>&1
 		fi
@@ -333,7 +351,11 @@ package() {
 	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/images/$MACHINE/ > /dev/null
 		if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == *"stratix10"* ]]; then
 			cp -vL u-boot.txt $ub_cp_destination
-			cp -vL boot.scr.uimg $ub_cp_destination
+			cp -vL boot.scr.* $ub_cp_destination
+			if [ "$HYP_BUILD" -eq 1 ]; then
+				cp -vL u-boot_xen.txt $STAGING_FOLDER/
+				cp -vL xen $STAGING_FOLDER/
+			fi
 		elif [[ "$MACHINE" == "arria10" && "$IMAGE" == "pr" ]]; then
 			cp -vL u-boot.txt $ub_cp_destination
 			cp -vL boot.scr $ub_cp_destination
@@ -448,4 +470,9 @@ build_esdk() {
 	build_setup
 	bitbake_esdk
 	package
+}
+
+build_hyp() {
+	export HYP_BUILD=1
+	build_default
 }
