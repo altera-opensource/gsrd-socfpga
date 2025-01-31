@@ -18,3 +18,7 @@
 	path = meta-clang
 	url = https://github.com/kraj/meta-clang.git
 	branch = styhead
+[submodule "meta-virtualization"]
+	path = meta-virtualization
+	url = https://git.yoctoproject.org/git/meta-virtualization
+	branch = styhead
