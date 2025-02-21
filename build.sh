@@ -194,7 +194,7 @@ build_setup() {
 		echo 'ARCHIVER_MODE[src] = "original"' >> conf/site.conf
 
 		# Setting for Hypervisor build
-		if [ "$HYP_BUILD" -eq 1 ]; then
+		if [[ "$HYP_BUILD" -eq 1 ]]; then
 			bitbake-layers add-layer ../meta-openembedded/meta-filesystems
 			bitbake-layers add-layer ../meta-virtualization
 
@@ -231,7 +231,7 @@ bitbake_image() {
 		echo -e "\n[INFO] Start bitbake process for target config.."
 		bitbake console-image-minimal gsrd-console-image 2>&1
 
-		if [ "$HYP_BUILD" -eq 1 ]; then
+		if [[ "$HYP_BUILD" -eq 1 ]]; then
 			bitbake xen-image-minimal console-image-minimal gsrd-console-image 2>&1
 		fi
 
@@ -352,7 +352,7 @@ package() {
 		if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == *"stratix10"* ]]; then
 			cp -vL u-boot.txt $ub_cp_destination
 			cp -vL boot.scr.* $ub_cp_destination
-			if [ "$HYP_BUILD" -eq 1 ]; then
+			if [[ "$HYP_BUILD" -eq 1 ]]; then
 				cp -vL u-boot_xen.txt $STAGING_FOLDER/
 				cp -vL xen $STAGING_FOLDER/
 			fi
