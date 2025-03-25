@@ -24,7 +24,7 @@ Dependencies
 | Agilex5                    |   gsrd                                       |
 | Agilex5 DK-A5E065BB32AES1  |   gsrd [ qspi + emmc ], nand                 |
 | Agilex5 DK-A5E013BB32AESI0 |   gsrd [ qspi + emmc ], nand                 |
-| Agilex5 Modular            |   gsrd                                       |
+| Agilex5 MK-A5E065BB32AES1  |   gsrd                                       |
 | Agilex7 DK-SI-AGF014EA     |   gsrd [ sgmii + pr + qspi ]                 |
 | Agilex7 DK-SI-AGF014EB     |   gsrd [ sgmii + pr + qspi ]                 |
 | Agilex7 DK-DEV-AGF027F1ES  |   gsrd                                       |
@@ -52,7 +52,7 @@ Dependencies
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
 | Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
 | Agilex5 DK-A5E013BB32AESI0 | $ . agilex5_dk_a5e013bb32aesi0-$Image-build.sh |
-| Agilex5 Modular            | $ . agilex5_modular-gsrd-build.sh              |
+| Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
@@ -81,7 +81,7 @@ Dependencies
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
 | Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
 | Agilex5 DK-A5E013BB32AESi0 | $ . agilex5_dk_a5e013bb32aesi0-$Image-build.sh |
-| Agilex5 Modular            | $ . agilex5_modular-gsrd-build.sh              |
+| Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
@@ -110,7 +110,7 @@ Dependencies
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
 | Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
 | Agilex5 DK-A5E013BB32AESI0 | $ . agilex5_dk_a5e013bb32aesi0-$Image-build.sh |
-| Agilex5 Modular            | $ . agilex5_modular-gsrd-build.sh              |
+| Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
@@ -138,8 +138,8 @@ Dependencies
                                   agilex5_dk_a5e013bb32aesi0_gsrd_ghrd.core.rbf
                                   agilex5_dk_a5e013bb32aesi0_nand_ghrd.core.rbf
                                   agilex5_dk_a5e013bb32aesi0_emmc_ghrd.core.rbf
-                       For Agilex5 Modular:-  
-                                  agilex5_modular_gsrd_ghrd.core.rbf 
+                       For Agilex5 MK-A5E065BB32AES1:-
+                                  agilex5_mk_a5e065bb32aes1_gsrd_ghrd.core.rbf
                        For Agilex7 DK-SI-AGF014EA:-  
                                   agilex7_dk_si_agf014ea_gsrd_ghrd.core.rbf  
                                   agilex7_dk_si_agf014ea_nand_ghrd.core.rbf  
