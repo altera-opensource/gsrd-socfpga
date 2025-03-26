@@ -1,4 +1,4 @@
-# Intel SoCFPGA Golden Software Reference Design
+# Altera SoCFPGA Golden Software Reference Design
 
 GSRD is an Embedded Linux Reference Distribution optimized for SoCFPGA.  
 It is based on Yocto Project Poky reference distribution.
