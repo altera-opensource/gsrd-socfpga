@@ -41,7 +41,7 @@ Dependencies
 ## Default GSRD Setup
 
 1. Clone the repository  
-`$ git clone -b $POKY_VERSION https://github.com/altera-opensource/gsrd-socfpga.git`
+`$ git clone -b $POKY_VERSION https://github.com/altera-fpga/gsrd-socfpga.git`
 2. Sync the submodules  
 `$ cd gsrd-socfpga`  
 `$ git submodule update --init -r`
@@ -70,7 +70,7 @@ Dependencies
 ## Default GSRD Setup with eSDK
 
 1. Clone the repository  
-`$ git clone -b $POKY_VERSION https://github.com/altera-opensource/gsrd-socfpga.git`
+`$ git clone -b $POKY_VERSION https://github.com/altera-fpga/gsrd-socfpga.git`
 2. Sync the submodules  
 `$ cd gsrd-socfpga`  
 `$ git submodule update --init -r`
@@ -99,7 +99,7 @@ Dependencies
 ## Custom GSRD Setup
 
 1. Clone the repository  
-`$ git clone -b $POKY_VERSION https://github.com/altera-opensource/gsrd-socfpga.git`
+`$ git clone -b $POKY_VERSION https://github.com/altera-fpga/gsrd-socfpga.git`
 2. Sync the submodules  
 `$ cd gsrd-socfpga`  
 `$ git submodule update --init -r`
