@@ -21,6 +21,7 @@ Dependencies
 
 |    Target                  |              Image                           |
 | -------------------------- | -------------------------------------------- |
+| Agilex3                    |   gsrd                                       |
 | Agilex5                    |   gsrd                                       |
 | Agilex5 DK-A5E065BB32AES1  |   gsrd [ qspi + emmc ], nand                 |
 | Agilex5 DK-A5E013BB32AESI0 |   gsrd [ qspi + emmc ], nand                 |
@@ -49,6 +50,7 @@ Dependencies
 
 |  Target                    |            Command                             |
 | -------------------------- | ---------------------------------------------- |
+| Agilex3                    | $ . agilex3-gsrd-build.sh                      |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
 | Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
 | Agilex5 DK-A5E013BB32AESI0 | $ . agilex5_dk_a5e013bb32aesi0-$Image-build.sh |
@@ -78,6 +80,7 @@ Dependencies
 
 |  Target                    |            Command                             |
 | -------------------------- | ---------------------------------------------- |
+| Agilex3                    | $ . agilex3-gsrd-build.sh                      |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
 | Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
 | Agilex5 DK-A5E013BB32AESi0 | $ . agilex5_dk_a5e013bb32aesi0-$Image-build.sh |
@@ -107,6 +110,7 @@ Dependencies
 
 |  Target                    |            Command                             |
 | -------------------------- | ---------------------------------------------- |
+| Agilex3                    | $ . agilex3-gsrd-build.sh                      |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
 | Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
 | Agilex5 DK-A5E013BB32AESI0 | $ . agilex5_dk_a5e013bb32aesi0-$Image-build.sh |
@@ -129,6 +133,8 @@ Dependencies
               1. Add custom GHRD design in:  
                  $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files  
                  NOTE: Update/Replace the file with the same naming convention  
+                       For Agilex3:-
+                                  agilex3_gsrd_ghrd.core.rbf
                        For Agilex5 DK-A5E065BB32AES1:-  
                                   agilex5_dk_a5e065bb32aes1_gsrd_ghrd.core.rbf 
                                   agilex5_dk_a5e065bb32aes1_nand_ghrd.core.rbf   
