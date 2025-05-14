@@ -29,6 +29,7 @@ Dependencies
 | Agilex7 DK-SI-AGF014EA     |   gsrd [ sgmii + pr + qspi ]                 |
 | Agilex7 DK-SI-AGF014EB     |   gsrd [ sgmii + pr + qspi ]                 |
 | Agilex7 DK-DEV-AGF027F1ES  |   gsrd                                       |
+| Agilex7 DK-DEV-AGF023FA    |   gsrd                                       |
 | Agilex7 DK-SI-AGI027FB     |   gsrd                                       |
 | Agilex7 DK-SI-AGI027FA     |   gsrd                                       |
 | Agilex7 DK-DEV-AGM039FES   |   gsrd                                       |
@@ -58,6 +59,7 @@ Dependencies
 | Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
+| Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
 | Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh       |
 | Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
@@ -88,6 +90,7 @@ Dependencies
 | Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
+| Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
 | Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh       |
 | Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
@@ -118,6 +121,7 @@ Dependencies
 | Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
+| Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
 | Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh       |
 | Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
@@ -155,7 +159,9 @@ Dependencies
                        For Agilex7 DK-SI-AGF014EB:-
                                   agilex7_dk_si_agf014eb_gsrd_ghrd.core.rbf 
                        For Agilex7 DK-DEV-AGF027F1ES:-  
-                                  agilex7_dk_dev_agf027f1es_gsrd_ghrd.core.rbf  
+                                  agilex7_dk_dev_agf027f1es_gsrd_ghrd.core.rbf
+                       For Agilex7 DK-DEV-AGF023FA:-
+                                  agilex7_dk_dev_agf023fa_gsrd_ghrd.core.rbf
                        For Agilex7 DK-SI-AGI027FB:-  
                                   agilex7_dk_si_agi027fb_gsrd_ghrd.core.rbf  
                        For Agilex7 DK-SI-AGI027FA:-  

@@ -387,6 +387,10 @@ package() {
 			for file in *_dk_dev_agf027f1es*; do
 				mv "$file" "${file/_dk_dev_agf027f1es/}"
 			done
+		elif [ "$MACHINE" == "agilex7_dk_dev_agf023fa" ]; then
+			for file in *_dk_dev_agf023fa*; do
+				mv "$file" "${file/_dk_dev_agf023fa/}"
+			done
 		elif [ "$MACHINE" == "agilex7_dk_si_agi027fb" ]; then
 			for file in *_dk_si_agi027fb*; do
 				mv "$file" "${file/_dk_si_agi027fb/}"
