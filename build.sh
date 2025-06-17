@@ -153,9 +153,11 @@ build_setup() {
 		bitbake-layers add-layer ../meta-intel-fpga-refdes
 		bitbake-layers add-layer ../meta-openembedded/meta-oe
 		bitbake-layers add-layer ../meta-openembedded/meta-python
-		bitbake-layers add-layer ../meta-openembedded/meta-networking
-		bitbake-layers add-layer ../meta-clang
 
+		if [[ "$MACHINE" != "agilex3" && "$IMAGE" != "qspi" ]]; then
+			bitbake-layers add-layer ../meta-openembedded/meta-networking
+			bitbake-layers add-layer ../meta-clang
+		fi
 		# Show layers for checking purposes
 		echo -e "\n"
 		bitbake-layers show-layers
@@ -168,8 +170,13 @@ build_setup() {
 		echo "DL_DIR = \"$WORKSPACE/downloads\"" >> conf/site.conf
 		echo "SSTATE_DIR ?= \"$WORKSPACE/sstate_cache\"" >> conf/site.conf
 		echo "IMAGE_TYPE:${MACHINE} = \"$IMAGE\"" >> conf/site.conf
-		echo 'DISTRO_FEATURES:append = " systemd usrmerge"' >> conf/site.conf
-		echo 'VIRTUAL-RUNTIME_init_manager = "systemd"' >> conf/site.conf
+		if [[ "$MACHINE" != "agilex3" && "$IMAGE" != "qspi" ]]; then
+			echo 'DISTRO_FEATURES:append = " systemd usrmerge"' >> conf/site.conf
+			echo 'VIRTUAL-RUNTIME_init_manager = "systemd"' >> conf/site.conf
+		else
+			echo 'CORE_IMAGE_EXTRA_INSTALL += "openssh gdbserver mtd-utils net-tools"' >> conf/site.conf
+			echo 'AGILEX3_QSPI_BUILD = "1"' >> conf/site.conf
+                fi
 		echo "require conf/machine/$MACHINE-gsrd.conf" >> conf/site.conf
 		# Linux
 		echo 'PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"' >> conf/site.conf
@@ -227,7 +234,11 @@ bitbake_image() {
 		fi
 
 		echo -e "\n[INFO] Start bitbake process for target config.."
-		bitbake console-image-minimal gsrd-console-image 2>&1
+		if [[ "$MACHINE" == "agilex3" && "$IMAGE" == "qspi" ]]; then
+			bitbake core-image-minimal 2>&1
+		else
+			bitbake console-image-minimal gsrd-console-image 2>&1
+		fi
 
 		if [[ "$HYP_BUILD" -eq 1 ]]; then
 			bitbake xen-image-minimal console-image-minimal gsrd-console-image 2>&1
