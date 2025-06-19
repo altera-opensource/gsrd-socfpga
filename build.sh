@@ -154,7 +154,7 @@ build_setup() {
 		bitbake-layers add-layer ../meta-openembedded/meta-oe
 		bitbake-layers add-layer ../meta-openembedded/meta-python
 
-		if [[ "$MACHINE" != "agilex3" && "$IMAGE" != "qspi" ]]; then
+		if ! [[ "$MACHINE" == "agilex3" && "$IMAGE" == "qspi" ]]; then
 			bitbake-layers add-layer ../meta-openembedded/meta-networking
 			bitbake-layers add-layer ../meta-clang
 		fi
@@ -170,7 +170,7 @@ build_setup() {
 		echo "DL_DIR = \"$WORKSPACE/downloads\"" >> conf/site.conf
 		echo "SSTATE_DIR ?= \"$WORKSPACE/sstate_cache\"" >> conf/site.conf
 		echo "IMAGE_TYPE:${MACHINE} = \"$IMAGE\"" >> conf/site.conf
-		if [[ "$MACHINE" != "agilex3" && "$IMAGE" != "qspi" ]]; then
+		if ! [[ "$MACHINE" == "agilex3" && "$IMAGE" == "qspi" ]]; then
 			echo 'DISTRO_FEATURES:append = " systemd usrmerge"' >> conf/site.conf
 			echo 'VIRTUAL-RUNTIME_init_manager = "systemd"' >> conf/site.conf
 		else
