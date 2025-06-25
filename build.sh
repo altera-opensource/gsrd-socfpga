@@ -205,7 +205,7 @@ build_setup() {
 
 			echo 'IMAGE_FSTYPES:append = " cpio cpio.gz cpio.gz.u-boot ext3 jffs2 tar.gz multiubi"' >> conf/site.conf
 			echo 'DISTRO_FEATURES:append = " virtualization xen"' >> conf/site.conf
-			echo 'IMAGE_INSTALL:append = " xen-tools"' >> conf/site.conf
+			echo 'IMAGE_INSTALL:append = " xen-tools net-tools"' >> conf/site.conf
 			echo 'HYP_BUILD = "1"' >> conf/site.conf
 		fi
 	popd > /dev/null
