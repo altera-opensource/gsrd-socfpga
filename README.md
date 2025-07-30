@@ -21,19 +21,14 @@ Dependencies
 
 |    Target                  |              Image                           |
 | -------------------------- | -------------------------------------------- |
-| Agilex3                    |   gsrd                                       |
+| Agilex3                    |   gsrd, qspi                                 |
 | Agilex5                    |   gsrd                                       |
-| Agilex5 DK-A5E065BB32AES1  |   gsrd [ qspi + emmc ], nand                 |
-| Agilex5 DK-A5E013BB32AESI0 |   gsrd [ qspi + emmc ], nand                 |
+| Agilex5 DK-A5E065BB32AES1  |   gsrd [ qspi + emmc ]                       |
 | Agilex5 MK-A5E065BB32AES1  |   gsrd                                       |
-| Agilex7 DK-SI-AGF014EA     |   gsrd [ sgmii + pr + qspi ]                 |
 | Agilex7 DK-SI-AGF014EB     |   gsrd [ sgmii + pr + qspi ]                 |
-| Agilex7 DK-DEV-AGF027F1ES  |   gsrd                                       |
 | Agilex7 DK-DEV-AGF023FA    |   gsrd                                       |
-| Agilex7 DK-SI-AGI027FB     |   gsrd                                       |
-| Agilex7 DK-SI-AGI027FA     |   gsrd                                       |
+| Agilex7 DK-SI-AGI027FC     |   gsrd                                       |
 | Agilex7 DK-DEV-AGM039FES   |   gsrd                                       |
-| Stratix10                  |   gsrd [ sgmii + pr + qspi ]                 |
 | Stratix10 H-Tile           |   gsrd [ pr + qspi ]                         |
 | Arria10                    |   gsrd, qspi, nand, pcie, pr, sgmii, tse     |
 | Cyclone5                   |   gsrd                                       |
@@ -51,19 +46,14 @@ Dependencies
 
 |  Target                    |            Command                             |
 | -------------------------- | ---------------------------------------------- |
-| Agilex3                    | $ . agilex3-gsrd-build.sh                      |
+| Agilex3                    | $ . agilex3-$Image-build.sh                    |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
-| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
-| Agilex5 DK-A5E013BB32AESI0 | $ . agilex5_dk_a5e013bb32aesi0-$Image-build.sh |
+| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
-| Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
-| Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
 | Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
-| Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh       |
-| Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh       |
+| Agilex7 DK-SI-AGI027FC     | $ . agilex7_dk_si_agi027fc-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
-| Stratix10                  | $ . stratix10-gsrd-build.sh                    |
 | Stratix10 H-Tile           | $ . stratix10_htile-gsrd-build.sh              |
 | Arria10                    | $ . arria10-$Image-build.sh                    |
 | Cyclone V                  | $ . cyclone5-gsrd-build.sh                     |
@@ -82,19 +72,14 @@ Dependencies
 
 |  Target                    |            Command                             |
 | -------------------------- | ---------------------------------------------- |
-| Agilex3                    | $ . agilex3-gsrd-build.sh                      |
+| Agilex3                    | $ . agilex3-$Image-build.sh                    |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
-| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
-| Agilex5 DK-A5E013BB32AESi0 | $ . agilex5_dk_a5e013bb32aesi0-$Image-build.sh |
+| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
-| Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
-| Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
 | Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
-| Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh       |
-| Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh       |
+| Agilex7 DK-SI-AGI027FC     | $ . agilex7_dk_si_agi027fc-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
-| Stratix10                  | $ . stratix10-gsrd-build.sh                    |
 | Stratix10 H-Tile           | $ . stratix10_htile-gsrd-build.sh              |
 | Arria10                    | $ . arria10-$Image-build.sh                    |
 | Cyclone V                  | $ . cyclone5-gsrd-build.sh                     |
@@ -113,19 +98,14 @@ Dependencies
 
 |  Target                    |            Command                             |
 | -------------------------- | ---------------------------------------------- |
-| Agilex3                    | $ . agilex3-gsrd-build.sh                      |
+| Agilex3                    | $ . agilex3-$Image-build.sh                      |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
-| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-$Image-build.sh  |
-| Agilex5 DK-A5E013BB32AESI0 | $ . agilex5_dk_a5e013bb32aesi0-$Image-build.sh |
+| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-gsrd-build.sh  |
 | Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
-| Agilex7 DK-SI-AGF014EA     | $ . agilex7_dk_si_agf014ea-gsrd-build.sh       |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
-| Agilex7 DK-DEV-AGF027F1ES  | $ . agilex7_dk_dev_agf027f1es-gsrd-build.sh    |
 | Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
-| Agilex7 DK-SI-AGI027FB     | $ . agilex7_dk_si_agi027fb-gsrd-build.sh       |
-| Agilex7 DK-SI-AGI027FA     | $ . agilex7_dk_si_agi027fa-gsrd-build.sh       |
+| Agilex7 DK-SI-AGI027FC     | $ . agilex7_dk_si_agi027fc-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
-| Stratix10                  | $ . stratix10-gsrd-build.sh                    |
 | Stratix10 H-Tile           | $ . stratix10_htile-gsrd-build.sh              |
 | Arria10                    | $ . arria10-$Image-build.sh                    |
 | Cyclone V                  | $ . cyclone5-gsrd-build.sh                     |
@@ -140,40 +120,23 @@ Dependencies
                        For Agilex3:-
                                   agilex3_gsrd_ghrd.core.rbf
                        For Agilex5 DK-A5E065BB32AES1:-  
-                                  agilex5_dk_a5e065bb32aes1_gsrd_ghrd.core.rbf 
-                                  agilex5_dk_a5e065bb32aes1_nand_ghrd.core.rbf   
-                                  agilex5_dk_a5e065bb32aes1_emmc_ghrd.core.rbf  
+                                  agilex5_dk_a5e065bb32aes1_gsrd_ghrd.core.rbf
+                                  agilex5_dk_a5e065bb32aes1_emmc_ghrd.core.rbf
                                   agilex5_dk_a5e065bb32aes1_tsnconfig2_ghrd.core.rbf
-                       For Agilex5 DK-A5E013BB32AESI0:-
-                                  agilex5_dk_a5e013bb32aesi0_gsrd_ghrd.core.rbf
-                                  agilex5_dk_a5e013bb32aesi0_nand_ghrd.core.rbf
-                                  agilex5_dk_a5e013bb32aesi0_emmc_ghrd.core.rbf
                        For Agilex5 MK-A5E065BB32AES1:-
                                   agilex5_mk_a5e065bb32aes1_gsrd_ghrd.core.rbf
-                       For Agilex7 DK-SI-AGF014EA:-  
-                                  agilex7_dk_si_agf014ea_gsrd_ghrd.core.rbf  
-                                  agilex7_dk_si_agf014ea_nand_ghrd.core.rbf  
-                                  agilex7_dk_si_agf014ea_pr_ghrd.core.rbf  
-                                  agilex7_dk_si_agf014ea_pr_persona0.rbf  
-                                  agilex7_dk_si_agf014ea_pr_persona1.rbf  
                        For Agilex7 DK-SI-AGF014EB:-
-                                  agilex7_dk_si_agf014eb_gsrd_ghrd.core.rbf 
-                       For Agilex7 DK-DEV-AGF027F1ES:-  
-                                  agilex7_dk_dev_agf027f1es_gsrd_ghrd.core.rbf
+                                  agilex7_dk_si_agf014eb_gsrd_ghrd.core.rbf
+                                  agilex7_dk_si_agf014eb_nand_ghrd.core.rbf
+                                  agilex7_dk_si_agf014eb_pr_ghrd.core.rbf
+                                  agilex7_dk_si_agf014eb_pr_persona0.rbf
+                                  agilex7_dk_si_agf014eb_pr_persona1.rbf
                        For Agilex7 DK-DEV-AGF023FA:-
                                   agilex7_dk_dev_agf023fa_gsrd_ghrd.core.rbf
-                       For Agilex7 DK-SI-AGI027FB:-  
-                                  agilex7_dk_si_agi027fb_gsrd_ghrd.core.rbf  
-                       For Agilex7 DK-SI-AGI027FA:-  
-                                  agilex7_dk_si_agi027fa_gsrd_ghrd.core.rbf 
+                       For Agilex7 DK-SI-AGI027FC:-  
+                                  agilex7_dk_si_agi027fc_gsrd_ghrd.core.rbf
                        For Agilex7 DK-DEV-AGM039FES:-  
-                                  agilex7_dk_dev_agm039fes_gsrd_ghrd.core.rbf 
-                       For Stratix10:-  
-                                  stratix10_gsrd_ghrd.core.rbf  
-                                  stratix10_nand_ghrd.core.rbf  
-                                  stratix10_pr_ghrd.core.rbf
-                                  stratix10_pr_persona0.rbf  
-                                  stratix10_pr_persona1.rbf  
+                                  agilex7_dk_dev_agm039fes_gsrd_ghrd.core.rbf
                        For Stratix10 H-Tile:-
                                   stratix10_htile_gsrd_ghrd.core.rbf
                                   stratix10_htile_nand_ghrd.core.rbf
@@ -182,35 +145,35 @@ Dependencies
                                   stratix10_htile_pr_persona1.rbf
                        For Arria10:-  
                                   GSRD:-  
-                                      arria10_gsrd_ghrd_10as066n2.core.rbf  
-                                      arria10_gsrd_ghrd_10as066n2.periph.rbf  
-                                      arria10_gsrd_hps.xml  
+                                      arria10_gsrd_ghrd_10as066n2.core.rbf
+                                      arria10_gsrd_ghrd_10as066n2.periph.rbf
+                                      arria10_gsrd_hps.xml
                                   NAND:-  
-                                      arria10_nand_ghrd_10as066n2.core.rbf  
-                                      arria10_nand_ghrd_10as066n2.periph.rbf  
-                                      arria10_nand_hps.xml  
+                                      arria10_nand_ghrd_10as066n2.core.rbf
+                                      arria10_nand_ghrd_10as066n2.periph.rbf
+                                      arria10_nand_hps.xml
                                   PCIE:-  
-                                      arria10_pcie_ghrd_10as066n2.core.rbf  
-                                      arria10_pcie_ghrd_10as066n2.periph.rbf  
-                                      arria10_pcie_hps.xml  
+                                      arria10_pcie_ghrd_10as066n2.core.rbf
+                                      arria10_pcie_ghrd_10as066n2.periph.rbf
+                                      arria10_pcie_hps.xml
                                   PR:-  
-                                      arria10_pr_ghrd_10as066n2.core.rbf  
-                                      arria10_pr_ghrd_10as066n2.periph.rbf  
-                                      arria10_pr_hps.xml  
-                                      arria10_pr_persona0.rbf  
-                                      arria10_pr_persona1.rbf  
+                                      arria10_pr_ghrd_10as066n2.core.rbf
+                                      arria10_pr_ghrd_10as066n2.periph.rbf
+                                      arria10_pr_hps.xml
+                                      arria10_pr_persona0.rbf
+                                      arria10_pr_persona1.rbf
                                   QSPI:-  
-                                      arria10_qspi_ghrd_10as066n2.core.rbf  
-                                      arria10_qspi_ghrd_10as066n2.periph.rbf  
-                                      arria10_qspi_hps.xml  
+                                      arria10_qspi_ghrd_10as066n2.core.rbf
+                                      arria10_qspi_ghrd_10as066n2.periph.rbf
+                                      arria10_qspi_hps.xml
                                   SGMII:-  
-                                      arria10_sgmii_ghrd_10as066n2.core.rbf  
-                                      arria10_sgmii_ghrd_10as066n2.periph.rbf  
-                                      arria10_sgmii_hps.xml  
+                                      arria10_sgmii_ghrd_10as066n2.core.rbf
+                                      arria10_sgmii_ghrd_10as066n2.periph.rbf
+                                      arria10_sgmii_hps.xml
                                   TSE:-  
-                                      arria10_tse_ghrd_10as066n2.core.rbf  
-                                      arria10_tse_ghrd_10as066n2.periph.rbf  
-                                      arria10_tse_hps.xml  
+                                      arria10_tse_ghrd_10as066n2.core.rbf
+                                      arria10_tse_ghrd_10as066n2.periph.rbf
+                                      arria10_tse_hps.xml
                        For Cyclone5:-  
                                   cyclone5_gsrd_soc_system.rbf  
               2. Update SRC_URL in the recipe:  
