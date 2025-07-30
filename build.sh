@@ -59,12 +59,6 @@ echo "UBOOT_SOCFPGA_BRANCH = $UBOOT_SOCFPGA_BRANCH"
 if [[ "$MACHINE" == *"agilex"* || "$MACHINE" == *"stratix10"* ]]; then
 	if [[ "$MACHINE" == *"agilex7"* ]]; then
 		UB_CONFIG="agilex-socdk-atf"
-	elif [[ "$MACHINE" == "agilex5_dk_a5e"* ]]; then
-		if [[ "$IMAGE" == "nand" ]]; then
-			UB_CONFIG="$MACHINE-socdk-$IMAGE-atf"
-		else
-			UB_CONFIG="$MACHINE-socdk-atf"
-		fi
 	elif [[ "$MACHINE" == *"stratix10"* ]]; then
 		UB_CONFIG="stratix10-socdk-atf"
 	else
@@ -386,29 +380,13 @@ package() {
 	popd > /dev/null
 
 	pushd $STAGING_FOLDER
-		if [ "$MACHINE" == "agilex7_dk_si_agf014ea" ]; then
-			for file in *_dk_si_agf014ea*; do
-				mv "$file" "${file/_dk_si_agf014ea/}"
-			done
-		elif [ "$MACHINE" == "agilex7_dk_si_agf014eb" ]; then
+		if [ "$MACHINE" == "agilex7_dk_si_agf014eb" ]; then
 			for file in *_dk_si_agf014eb*; do
 				mv "$file" "${file/_dk_si_agf014eb/}"
-			done
-		elif [ "$MACHINE" == "agilex7_dk_dev_agf027f1es" ]; then
-			for file in *_dk_dev_agf027f1es*; do
-				mv "$file" "${file/_dk_dev_agf027f1es/}"
 			done
 		elif [ "$MACHINE" == "agilex7_dk_dev_agf023fa" ]; then
 			for file in *_dk_dev_agf023fa*; do
 				mv "$file" "${file/_dk_dev_agf023fa/}"
-			done
-		elif [ "$MACHINE" == "agilex7_dk_si_agi027fb" ]; then
-			for file in *_dk_si_agi027fb*; do
-				mv "$file" "${file/_dk_si_agi027fb/}"
-			done
-		elif [ "$MACHINE" == "agilex7_dk_si_agi027fa" ]; then
-			for file in *_dk_si_agi027fa*; do
-				mv "$file" "${file/_dk_si_agi027fa/}"
 			done
 		elif [ "$MACHINE" == "agilex7_dk_si_agi027fc" ]; then
 			for file in *_dk_si_agi027fc*; do
@@ -421,10 +399,6 @@ package() {
 		elif [ "$MACHINE" == "agilex5_dk_a5e065bb32aes1" ]; then
 			for file in *_dk_a5e065bb32aes1*; do
 				mv "$file" "${file/_dk_a5e065bb32aes1/}"
-			done
-		elif [ "$MACHINE" == "agilex5_dk_a5e013bb32aesi0" ]; then
-			for file in *_dk_a5e013bb32aesi0*; do
-				mv "$file" "${file/_dk_a5e013bb32aesi0/}"
 			done
 		elif [ "$MACHINE" == "agilex5_mk_a5e065bb32aes1" ]; then
 			for file in *_mk_a5e065bb32aes1*; do
