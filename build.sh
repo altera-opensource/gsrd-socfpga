@@ -168,9 +168,10 @@ build_setup() {
 			echo 'DISTRO_FEATURES:append = " systemd usrmerge"' >> conf/site.conf
 			echo 'VIRTUAL-RUNTIME_init_manager = "systemd"' >> conf/site.conf
 		else
+			echo 'IMAGE_FSTYPES:append = " cpio cpio.gz cpio.gz.u-boot ext3 jffs2 tar.gz multiubi"' >> conf/site.conf
 			echo 'CORE_IMAGE_EXTRA_INSTALL += "openssh gdbserver mtd-utils net-tools"' >> conf/site.conf
 			echo 'AGILEX3_QSPI_BUILD = "1"' >> conf/site.conf
-                fi
+		fi
 		echo "require conf/machine/$MACHINE-gsrd.conf" >> conf/site.conf
 		# Linux
 		echo 'PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"' >> conf/site.conf
