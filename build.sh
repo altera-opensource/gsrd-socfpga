@@ -148,7 +148,7 @@ build_setup() {
 		bitbake-layers add-layer ../meta-openembedded/meta-oe
 		bitbake-layers add-layer ../meta-openembedded/meta-python
 
-		if ! [[ "$MACHINE" == "agilex3" && "$IMAGE" == "qspi" ]]; then
+		if ! [[ ( "$MACHINE" == "agilex3" || "$MACHINE" == "agilex5_dk_a5e013bm16aea" ) && "$IMAGE" == "qspi" ]]; then
 			bitbake-layers add-layer ../meta-openembedded/meta-networking
 			bitbake-layers add-layer ../meta-clang
 		fi
@@ -164,13 +164,13 @@ build_setup() {
 		echo "DL_DIR = \"$WORKSPACE/downloads\"" >> conf/site.conf
 		echo "SSTATE_DIR ?= \"$WORKSPACE/sstate_cache\"" >> conf/site.conf
 		echo "IMAGE_TYPE:${MACHINE} = \"$IMAGE\"" >> conf/site.conf
-		if ! [[ "$MACHINE" == "agilex3" && "$IMAGE" == "qspi" ]]; then
+		if ! [[ ( "$MACHINE" == "agilex3" || "$MACHINE" == "agilex5_dk_a5e013bm16aea" ) && "$IMAGE" == "qspi" ]]; then
 			echo 'DISTRO_FEATURES:append = " systemd usrmerge"' >> conf/site.conf
 			echo 'VIRTUAL-RUNTIME_init_manager = "systemd"' >> conf/site.conf
 		else
 			echo 'IMAGE_FSTYPES:append = " cpio cpio.gz cpio.gz.u-boot ext3 jffs2 tar.gz multiubi"' >> conf/site.conf
 			echo 'CORE_IMAGE_EXTRA_INSTALL += "openssh gdbserver mtd-utils net-tools"' >> conf/site.conf
-			echo 'AGILEX3_QSPI_BUILD = "1"' >> conf/site.conf
+			echo '64MB_QSPI_BUILD = "1"' >> conf/site.conf
 		fi
 		echo "require conf/machine/$MACHINE-gsrd.conf" >> conf/site.conf
 		# Linux
@@ -229,7 +229,7 @@ bitbake_image() {
 		fi
 
 		echo -e "\n[INFO] Start bitbake process for target config.."
-		if [[ "$MACHINE" == "agilex3" && "$IMAGE" == "qspi" ]]; then
+		if [[ ( "$MACHINE" == "agilex3" || "$MACHINE" == "agilex5_dk_a5e013bm16aea" ) && "$IMAGE" == "qspi" ]]; then
 			bitbake core-image-minimal 2>&1
 		else
 			bitbake console-image-minimal gsrd-console-image 2>&1
@@ -396,6 +396,10 @@ package() {
 		elif [ "$MACHINE" == "agilex7_dk_dev_agm039fes" ]; then
 			for file in *_dk_dev_agm039fes*; do
 				mv "$file" "${file/_dk_dev_agm039fes/}"
+			done
+		elif [ "$MACHINE" == "agilex5_dk_a5e013bm16aea" ]; then
+			for file in *_dk_a5e013bm16aea*; do
+				mv "$file" "${file/_dk_a5e013bm16aea/}"
 			done
 		elif [ "$MACHINE" == "agilex5_dk_a5e065bb32aes1" ]; then
 			for file in *_dk_a5e065bb32aes1*; do

@@ -23,6 +23,7 @@ Dependencies
 | -------------------------- | -------------------------------------------- |
 | Agilex3                    |   gsrd, qspi                                 |
 | Agilex5                    |   gsrd                                       |
+| Agilex5 DK-A5E013BM16AEA   |   gsrd, qspi                                 |
 | Agilex5 DK-A5E065BB32AES1  |   gsrd [ qspi + emmc ]                       |
 | Agilex5 MK-A5E065BB32AES1  |   gsrd                                       |
 | Agilex7 DK-SI-AGF014EB     |   gsrd [ sgmii + pr + qspi ]                 |
@@ -48,6 +49,7 @@ Dependencies
 | -------------------------- | ---------------------------------------------- |
 | Agilex3                    | $ . agilex3-$Image-build.sh                    |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
+| Agilex5 DK-A5E013BM16AEA   | $ . agilex5_dk_a5e013bm16aea-$Image-build.sh   |
 | Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
@@ -74,6 +76,7 @@ Dependencies
 | -------------------------- | ---------------------------------------------- |
 | Agilex3                    | $ . agilex3-$Image-build.sh                    |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
+| Agilex5 DK-A5E013BM16AEA   | $ . agilex5_dk_a5e013bm16aea-$Image-build.sh   |
 | Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
@@ -98,9 +101,10 @@ Dependencies
 
 |  Target                    |            Command                             |
 | -------------------------- | ---------------------------------------------- |
-| Agilex3                    | $ . agilex3-$Image-build.sh                      |
+| Agilex3                    | $ . agilex3-$Image-build.sh                    |
 | Agilex5                    | $ . agilex5-gsrd-build.sh                      |
-| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-gsrd-build.sh  |
+| Agilex5 DK-A5E013BM16AEA   | $ . agilex5_dk_a5e013bm16aea-$Image-build.sh   |
+| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
@@ -119,6 +123,8 @@ Dependencies
                  NOTE: Update/Replace the file with the same naming convention  
                        For Agilex3:-
                                   agilex3_gsrd_ghrd.core.rbf
+                       For Agilex5 DK-A5E013BM16AEA:-
+                                  agilex5_dk_a5e013bm16aea_gsrd_ghrd.core.rbf
                        For Agilex5 DK-A5E065BB32AES1:-  
                                   agilex5_dk_a5e065bb32aes1_gsrd_ghrd.core.rbf
                                   agilex5_dk_a5e065bb32aes1_emmc_ghrd.core.rbf
