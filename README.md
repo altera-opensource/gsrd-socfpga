@@ -29,6 +29,7 @@ Dependencies
 | Agilex7 DK-SI-AGF014EB     |   gsrd [ sgmii + pr + qspi ]                 |
 | Agilex7 DK-DEV-AGF023FA    |   gsrd                                       |
 | Agilex7 DK-SI-AGI027FC     |   gsrd                                       |
+| Agilex7 DK-DEV-AGM039FB    |   gsrd                                       |
 | Agilex7 DK-DEV-AGM039FES   |   gsrd                                       |
 | Stratix10 H-Tile           |   gsrd [ pr + qspi ]                         |
 | Arria10                    |   gsrd, qspi, nand, pcie, pr, sgmii, tse     |
@@ -55,6 +56,7 @@ Dependencies
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
 | Agilex7 DK-SI-AGI027FC     | $ . agilex7_dk_si_agi027fc-gsrd-build.sh       |
+| Agilex7 DK-DEV-AGM039FB    | $ . agilex7_dk_dev_agm039fb-gsrd-build.sh      |
 | Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
 | Stratix10 H-Tile           | $ . stratix10_htile-gsrd-build.sh              |
 | Arria10                    | $ . arria10-$Image-build.sh                    |
@@ -82,6 +84,7 @@ Dependencies
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
 | Agilex7 DK-SI-AGI027FC     | $ . agilex7_dk_si_agi027fc-gsrd-build.sh       |
+| Agilex7 DK-DEV-AGM039FB    | $ . agilex7_dk_dev_agm039fb-gsrd-build.sh      |
 | Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
 | Stratix10 H-Tile           | $ . stratix10_htile-gsrd-build.sh              |
 | Arria10                    | $ . arria10-$Image-build.sh                    |
@@ -109,6 +112,7 @@ Dependencies
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
 | Agilex7 DK-SI-AGI027FC     | $ . agilex7_dk_si_agi027fc-gsrd-build.sh       |
+| Agilex7 DK-DEV-AGM039FB    | $ . agilex7_dk_dev_agm039fb-gsrd-build.sh      |
 | Agilex7 DK-DEV-AGM039FES   | $ . agilex7_dk_dev_agm039fes-gsrd-build.sh     |
 | Stratix10 H-Tile           | $ . stratix10_htile-gsrd-build.sh              |
 | Arria10                    | $ . arria10-$Image-build.sh                    |
@@ -141,6 +145,8 @@ Dependencies
                                   agilex7_dk_dev_agf023fa_gsrd_ghrd.core.rbf
                        For Agilex7 DK-SI-AGI027FC:-  
                                   agilex7_dk_si_agi027fc_gsrd_ghrd.core.rbf
+                       For Agilex7 DK-DEV-AGM039FB:-  
+                                  agilex7_dk_dev_agm039fb_gsrd_ghrd.core.rbf
                        For Agilex7 DK-DEV-AGM039FES:-  
                                   agilex7_dk_dev_agm039fes_gsrd_ghrd.core.rbf
                        For Stratix10 H-Tile:-
