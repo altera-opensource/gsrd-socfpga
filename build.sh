@@ -134,17 +134,20 @@ build_setup() {
 #------------------------------------------------------------------------------------------#
 	pushd $WORKSPACE > /dev/null
 		
-		# Setup Poky build environment
+		# Setup openembedded-core build environment
 		pushd meta-intel-fpga-refdes/recipes-bsp/ghrd > /dev/null
 			mkdir -p ./files
 		popd
-		echo -e "\n[INFO] Source poky/oe-init-build-env to initialize poky build environment"
-		source poky/oe-init-build-env $WORKSPACE/$MACHINE-$IMAGE-rootfs/
+		echo -e "\n[INFO] Source openembedded-core/oe-init-build-env to initialize openembedded-core build environment"
+		source openembedded-core/oe-init-build-env $WORKSPACE/$MACHINE-$IMAGE-rootfs/
 
 		# Settings for bblayers.conf
 		echo -e "\n[INFO] Update bblayers.conf"
 		bitbake-layers add-layer ../meta-intel-fpga
 		bitbake-layers add-layer ../meta-intel-fpga-refdes
+		bitbake-layers add-layer ../openembedded-core/meta
+		bitbake-layers add-layer ../meta-yocto/meta-poky
+		bitbake-layers add-layer ../meta-yocto/meta-yocto-bsp
 		bitbake-layers add-layer ../meta-openembedded/meta-oe
 		bitbake-layers add-layer ../meta-openembedded/meta-python
 
@@ -250,6 +253,8 @@ bitbake_image() {
 
 bitbake_esdk() {
        pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs > /dev/null
+               echo 'PACKAGE_CLASSES += "package_rpm"' >> conf/site.conf
+
                echo -e "\n[INFO] Clean up previous kernel build if any"
                bitbake virtual/kernel -c cleanall
                echo -e "\n[INFO] Clean up previous u-boot build if any"
@@ -317,7 +322,7 @@ package() {
 		ub_cp_destination=$STAGING_FOLDER/u-boot-$MACHINE-socdk-$IMAGE
 	fi
 
-	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/work/$MACHINE-poky-*/u-boot-socfpga/v20*/build/*defconfig/
+	pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/work/$MACHINE-oe-*/u-boot-socfpga/v20*/sources/build/*defconfig*/
 		cp -vL u-boot $ub_cp_destination
 		cp -vL u-boot-dtb.bin $ub_cp_destination
 		cp -vL u-boot-dtb.img $ub_cp_destination
@@ -448,7 +453,7 @@ package() {
 	if [[ -d $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/sdk ]]; then
 		pushd $WORKSPACE/$MACHINE-$IMAGE-rootfs/tmp/deploy/sdk/ > /dev/null
 			mkdir -p $STAGING_FOLDER/esdk
-			cp -vL poky*.sh $STAGING_FOLDER/esdk/.
+			cp -vL oecore*.sh $STAGING_FOLDER/esdk/.
 		popd > /dev/null
 	fi
 

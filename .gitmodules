@@ -1,24 +1,31 @@
-[submodule "poky"]
-	path = poky
-	url = https://git.yoctoproject.org/git/poky
-	branch = walnascar
 [submodule "meta-intel-fpga"]
 	path = meta-intel-fpga
 	url = https://git.yoctoproject.org/git/meta-intel-fpga
-	branch = walnascar
+	branch = whinlatter
 [submodule "meta-intel-fpga-refdes"]
 	path = meta-intel-fpga-refdes
 	url = https://github.com/altera-opensource/meta-intel-fpga-refdes.git
-	branch = walnascar
+	branch = whinlatter
 [submodule "meta-openembedded"]
 	path = meta-openembedded
 	url = https://git.openembedded.org/meta-openembedded
-	branch = walnascar
+	branch = whinlatter
 [submodule "meta-clang"]
 	path = meta-clang
 	url = https://github.com/kraj/meta-clang.git
-	branch = walnascar
+	branch = whinlatter
 [submodule "meta-virtualization"]
 	path = meta-virtualization
 	url = https://git.yoctoproject.org/git/meta-virtualization
-	branch = walnascar
+	branch = whinlatter
+[submodule "bitbake"]
+	path = bitbake
+	url = https://git.openembedded.org/bitbake
+[submodule "openembedded-core"]
+	path = openembedded-core
+	url = https://git.openembedded.org/openembedded-core
+	branch = whinlatter
+[submodule "meta-yocto"]
+	path = meta-yocto
+	url = https://git.yoctoproject.org/meta-yocto
+	branch = whinlatter
