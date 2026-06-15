@@ -21,12 +21,7 @@ Dependencies
 
 |    Target                  |              Image                           |
 | -------------------------- | -------------------------------------------- |
-| Agilex3                    |   gsrd, qspi                                 |
-| Agilex5                    |   gsrd                                       |
-| Agilex5 DK-A5E013BM16AEA   |   gsrd, qspi                                 |
-| Agilex5 DK-A5E065BB32AES1  |   gsrd [ qspi + emmc ]                       |
-| Agilex5 MK-A5E065BB32AES1  |   gsrd                                       |
-| Agilex7 DK-SI-AGF014EB     |   gsrd [ sgmii + pr + qspi ]                 |
+| Agilex7 DK-SI-AGF014EB     |   gsrd [ sgmii + pr + emmc + qspi ]          |
 | Agilex7 DK-DEV-AGF023FA    |   gsrd                                       |
 | Agilex7 DK-SI-AGI027FC     |   gsrd                                       |
 | Agilex7 DK-DEV-AGM039EA    |   gsrd                                       |
@@ -48,11 +43,6 @@ Dependencies
 
 |  Target                    |            Command                             |
 | -------------------------- | ---------------------------------------------- |
-| Agilex3                    | $ . agilex3-$Image-build.sh                    |
-| Agilex5                    | $ . agilex5-gsrd-build.sh                      |
-| Agilex5 DK-A5E013BM16AEA   | $ . agilex5_dk_a5e013bm16aea-$Image-build.sh   |
-| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-gsrd-build.sh    |
-| Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
 | Agilex7 DK-SI-AGI027FC     | $ . agilex7_dk_si_agi027fc-gsrd-build.sh       |
@@ -76,11 +66,6 @@ Dependencies
 
 |  Target                    |            Command                             |
 | -------------------------- | ---------------------------------------------- |
-| Agilex3                    | $ . agilex3-$Image-build.sh                    |
-| Agilex5                    | $ . agilex5-gsrd-build.sh                      |
-| Agilex5 DK-A5E013BM16AEA   | $ . agilex5_dk_a5e013bm16aea-$Image-build.sh   |
-| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-gsrd-build.sh    |
-| Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
 | Agilex7 DK-SI-AGI027FC     | $ . agilex7_dk_si_agi027fc-gsrd-build.sh       |
@@ -104,11 +89,6 @@ Dependencies
 
 |  Target                    |            Command                             |
 | -------------------------- | ---------------------------------------------- |
-| Agilex3                    | $ . agilex3-$Image-build.sh                    |
-| Agilex5                    | $ . agilex5-gsrd-build.sh                      |
-| Agilex5 DK-A5E013BM16AEA   | $ . agilex5_dk_a5e013bm16aea-$Image-build.sh   |
-| Agilex5 DK-A5E065BB32AES1  | $ . agilex5_dk_a5e065bb32aes1-gsrd-build.sh    |
-| Agilex5 MK-A5E065BB32AES1  | $ . agilex5_mk_a5e065bb32aes1-gsrd-build.sh    |
 | Agilex7 DK-SI-AGF014EB     | $ . agilex7_dk_si_agf014eb-gsrd-build.sh       |
 | Agilex7 DK-DEV-AGF023FA    | $ . agilex7_dk_dev_agf023fa-gsrd-build.sh      |
 | Agilex7 DK-SI-AGI027FC     | $ . agilex7_dk_si_agi027fc-gsrd-build.sh       |
@@ -125,19 +105,11 @@ Dependencies
               1. Add custom GHRD design in:  
                  $WORKSPACE/meta-intel-fpga-refdes/recipes-bsp/ghrd/files  
                  NOTE: Update/Replace the file with the same naming convention  
-                       For Agilex3:-
-                                  agilex3_gsrd_ghrd.core.rbf
-                       For Agilex5 DK-A5E013BM16AEA:-
-                                  agilex5_dk_a5e013bm16aea_gsrd_ghrd.core.rbf
-                       For Agilex5 DK-A5E065BB32AES1:-  
-                                  agilex5_dk_a5e065bb32aes1_gsrd_ghrd.core.rbf
-                                  agilex5_dk_a5e065bb32aes1_emmc_ghrd.core.rbf
-                                  agilex5_dk_a5e065bb32aes1_tsnconfig2_ghrd.core.rbf
-                       For Agilex5 MK-A5E065BB32AES1:-
-                                  agilex5_mk_a5e065bb32aes1_gsrd_ghrd.core.rbf
                        For Agilex7 DK-SI-AGF014EB:-
                                   agilex7_dk_si_agf014eb_gsrd_ghrd.core.rbf
                                   agilex7_dk_si_agf014eb_nand_ghrd.core.rbf
+                                  agilex7_dk_si_agf014eb_emmc_ghrd.core.rbf
+                                  agilex7_dk_si_agf014eb_sgmii_ghrd.core.rbf
                                   agilex7_dk_si_agf014eb_pr_ghrd.core.rbf
                                   agilex7_dk_si_agf014eb_pr_persona0.rbf
                                   agilex7_dk_si_agf014eb_pr_persona1.rbf
@@ -152,6 +124,7 @@ Dependencies
                        For Stratix10 H-Tile:-
                                   stratix10_htile_gsrd_ghrd.core.rbf
                                   stratix10_htile_nand_ghrd.core.rbf
+                                  stratix10_htile_emmc_ghrd.core.rbf
                                   stratix10_htile_pr_ghrd.core.rbf
                                   stratix10_htile_pr_persona0.rbf
                                   stratix10_htile_pr_persona1.rbf
@@ -196,6 +169,8 @@ Dependencies
                        SRC_URI:agilex7_dk_si_agf014ea ?= "\  
                                            file://agilex7_dk_si_agf014ea_gsrd_ghrd.core.rbf;sha256sum=xxxx \  
                                            file://agilex7_dk_si_agf014ea_nand_ghrd.core.rbf;sha256sum=xxxx \  
+                                           file://agilex7_dk_si_agf014ea_emmc_ghrd.core.rbf;sha256sum=xxxx \  
+                                           file://agilex7_dk_si_agf014ea_sgmii_ghrd.core.rbf;sha256sum=xxxx \  
                                            file://agilex7_dk_si_agf014ea_pr_ghrd.core.rbf;sha256sum=xxxx \  
                                            file://agilex7_dk_si_agf014ea_pr_persona0.rbf;sha256sum=xxxx \  
                                            file://agilex7_dk_si_agf014ea_pr_persona1.rbf;sha256sum=xxxx \  
